@@ -3,16 +3,6 @@
 class Promo
 {
     private $id, $nom, $dateDebut, $dateFin, $places;
-
-    public function __construct($id, $nom, $dateDebut, $dateFin, $places)
-    {
-        $this->id = $id;
-        $this->nom = $nom;
-        $this->dateDebut = $dateDebut;
-        $this->dateFin = $dateFin;
-        $this->places = $places;
-    }
-
     public function getId()
     {
         return $this->id;
