@@ -12,8 +12,10 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $userController->getAllUsers();
+
                 // $userController->getUpdateUsers($name, $first_name, $activity, $password, $mail);
                 // $userController->getDeleteUsers($id_users);
+
                 break;
             case 'POST':
                 // $userController->getCreateUsers($name, $first_name, $activity, $password, $mail);

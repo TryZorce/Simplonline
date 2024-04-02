@@ -61,6 +61,7 @@ class PromoController
     //     $promoRepository = new PromoRepository();
     //     $promoRepository->delete($id);
 
+
     //     $jsonResponse = json_encode(['status' => 'success']);
 
     //     header('Content-Type: application/json');
