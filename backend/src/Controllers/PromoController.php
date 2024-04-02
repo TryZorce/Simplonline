@@ -32,7 +32,7 @@ class PromoController
         echo ($jsonResponse);
     }
 
-    public function create($nom, $dateDebut, $dateFin, $places)
+    public function createCours($nom, $dateDebut, $dateFin, $places)
     {
         $promoRepository = new PromoRepository();
         $id = $promoRepository->create($nom, $dateDebut, $dateFin, $places);
@@ -44,7 +44,7 @@ class PromoController
         echo ($jsonResponse);
     }
 
-    public function update($id, $nom, $dateDebut, $dateFin, $places)
+    public function updateCours($id, $nom, $dateDebut, $dateFin, $places)
     {
         $promoRepository = new PromoRepository();
         $promoRepository->update($id, $nom, $dateDebut, $dateFin, $places);
@@ -56,7 +56,7 @@ class PromoController
         echo ($jsonResponse);
     }
 
-    public function delete($id)
+    public function deleteCoursById($id)
     {
         $promoRepository = new PromoRepository();
         $promoRepository->delete($id);
