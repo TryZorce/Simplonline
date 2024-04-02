@@ -3,9 +3,11 @@
 class CoursRepository extends Database{
 
     public function getAll() {
-        $stmt = $this->getDb()->query('SELECT * FROM Cours');
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Cours');
-        return $stmt->fetchAll();
+        $req = $this->getDb()->query('SELECT * FROM Cours');
+
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
     }
 
     public function getById($id) {
