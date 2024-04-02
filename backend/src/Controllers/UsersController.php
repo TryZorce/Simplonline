@@ -32,29 +32,30 @@ class UsersController
     //     echo ($jsonReponse);
     // }
 
-    // public function getCreateUsers($name, $first_name, $activity, $password, $mail)
-    // {
-    //     $usersRepository = new UsersRepository();
+    public function getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
+    {
+        $usersRepository = new UsersRepository();
 
-    //     $usersCreate = $usersRepository->getCreate($name, $first_name, $activity, $password, $mail);
+        $usersCreate = $usersRepository->getCreate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
     //     $jsonReponse = json_encode($usersCreate);
 
     //     header('Content-Type: application/json');
 
     //     echo ($jsonReponse);
-    // }
+    }
 
-    // public function getUpdateUsers($name, $first_name, $activity, $password, $mail)
-    // {
-    //     $usersRepository = new UsersRepository();
-    //     $usersUpdate = $usersRepository->getUpdate($name, $first_name, $activity, $password, $mail);
+    public function getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
+    {
+        $usersRepository = new UsersRepository();
+        $usersUpdate = $usersRepository->getUpdate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
     //     $jsonReponse = json_encode($usersUpdate);
 
     //     header('Content-Type: application/json');
 
     //     echo ($jsonReponse);
-    // }
+    }
 
 }
+

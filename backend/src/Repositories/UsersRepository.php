@@ -4,25 +4,25 @@ class UsersRepository extends Database
 {
     public function getAll()
     {
-        $req = $this->getDb()->query('SELECT * FROM Users');
+        $req = $this->getDb()->query('SELECT * FROM users');
 
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
 
-    public function getCreate($name, $first_name, $activity, $password, $mail)
+    public function getCreate($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
-        $query = 'INSERT INTO users (name, prénom, activité, mot_de_passe, mail) 
+        $query = 'INSERT INTO users (nom, prénom, activité, mot_de_passe, mail) 
         VALUES (:nom, :prénom, :activité, :mot_de_passe, :mail)';
 
         $req = $this->getDb()->prepare($query);
 
         $req->execute([
-            'name' => $name,
-            'prénom' => $first_name,
-            'activité' => $activity,
-            'mot_de_passe' => $password,
+            'name' => $nom,
+            'prénom' => $prénom,
+            'activité' => $activité,
+            'mot_de_passe' => $mot_de_passe,
             'mail' => $mail,
         ]);
 
@@ -54,7 +54,7 @@ class UsersRepository extends Database
         return $req->fetchAll(PDO::FETCH_CLASS, Users::class);
     }
 
-    public function getUpdate($name, $first_name, $activity, $password, $mail)
+    public function getUpdate($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
         $query = 'UPDATE users SET nom = :nom, prénom = :prénom, activité= :activité, mot_de_passe= :mot_de_passe, mail= :mail
         WHERE id_users = :id_users';
@@ -62,10 +62,10 @@ class UsersRepository extends Database
         $req = $this->getDb()->prepare($query);
 
         $req->execute([
-            'nom' => $name,
-            'prénom' => $first_name,
-            'activité' => $activity,
-            'mot_de_passe' => $password,
+            'nom' => $nom,
+            'prénom' => $prénom,
+            'activité' => $activité,
+            'mot_de_passe' => $mot_de_passe,
             'mail' => $mail,
         ]);
 
