@@ -4,9 +4,11 @@ class PromoRepository extends Database{
 
 
     public function getAll() {
-        $stmt = $this->getDb()->query('SELECT * FROM Promo');
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Promo');
-        return $stmt->fetchAll();
+        $req = $this->getDb()->query('SELECT * FROM Promo');
+
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
     }
 
     public function getById($id) {
@@ -28,7 +30,7 @@ class PromoRepository extends Database{
     }
 
     public function update($id, $nom, $dateDebut, $dateFin, $places) {
-        $stmt = $this->getDb()->prepare('UPDATE Promo SET nom = :nom, date_debut = :dateDebut, date_fin = :dateFin, places = :places WHERE id_promo = :id');
+        $stmt = $this->getDb()->prepare('UPDATE Promo SET nom = :nom, date_début = :dateDebut, date_fin = :dateFin, places = :places WHERE id_promo = :id');
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':nom', $nom);
         $stmt->bindValue(':dateDebut', $dateDebut);

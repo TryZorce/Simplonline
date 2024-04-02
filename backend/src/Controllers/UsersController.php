@@ -20,41 +20,42 @@ class UsersController
         echo ($jsonReponse);
     }
 
-    public function getDeleteUsers($id_users)
+    // public function getDeleteUsers($id_users)
+    // {
+    //     $usersRepository = new UsersRepository();
+    //     $usersDelete = $usersRepository->getDelete($id_users);
+
+    //     $jsonReponse = json_encode($usersDelete);
+
+    //     header('Content-Type: application/json');
+
+    //     echo ($jsonReponse);
+    // }
+
+    public function getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
         $usersRepository = new UsersRepository();
-        $usersDelete = $usersRepository->getDelete($id_users);
 
-        $jsonReponse = json_encode($usersDelete);
+        $usersCreate = $usersRepository->getCreate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-        header('Content-Type: application/json');
+    //     $jsonReponse = json_encode($usersCreate);
 
-        echo ($jsonReponse);
+    //     header('Content-Type: application/json');
+
+    //     echo ($jsonReponse);
     }
 
-    public function getCreateUsers($name, $first_name, $activity, $password, $mail)
+    public function getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
         $usersRepository = new UsersRepository();
+        $usersUpdate = $usersRepository->getUpdate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-        $usersCreate = $usersRepository->getCreate($name, $first_name, $activity, $password, $mail);
+    //     $jsonReponse = json_encode($usersUpdate);
 
-        $jsonReponse = json_encode($usersCreate);
+    //     header('Content-Type: application/json');
 
-        header('Content-Type: application/json');
-
-        echo ($jsonReponse);
-    }
-
-    public function getUpdateUsers($name, $first_name, $activity, $password, $mail)
-    {
-        $usersRepository = new UsersRepository();
-        $usersUpdate = $usersRepository->getUpdate($name, $first_name, $activity, $password, $mail);
-
-        $jsonReponse = json_encode($usersUpdate);
-
-        header('Content-Type: application/json');
-
-        echo ($jsonReponse);
+    //     echo ($jsonReponse);
     }
 
 }
+
