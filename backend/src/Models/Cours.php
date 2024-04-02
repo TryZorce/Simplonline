@@ -3,13 +3,6 @@
 class Cours
 {
     private $id, $jour, $periode, $idPromo;
-    public function __construct($id, $jour, $periode, $idPromo)
-    {
-        $this->id = $id;
-        $this->jour = $jour;
-        $this->periode = $periode;
-        $this->idPromo = $idPromo;
-    }
 
     public function getId()
     {
