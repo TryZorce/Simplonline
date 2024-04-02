@@ -20,7 +20,7 @@ class UsersController
         echo ($jsonReponse);
     }
 
-    public function getDeleteUsers()
+    public function getDeleteUsers($id_users)
     {
         $usersRepository = new UsersRepository();
         $usersDelete = $usersRepository->getDelete($id_users);
@@ -32,9 +32,10 @@ class UsersController
         echo ($jsonReponse);
     }
 
-    public function getCreateUsers()
+    public function getCreateUsers($name, $first_name, $activity, $password, $mail)
     {
         $usersRepository = new UsersRepository();
+
         $usersCreate = $usersRepository->getCreate($name, $first_name, $activity, $password, $mail);
 
         $jsonReponse = json_encode($usersCreate);
@@ -44,7 +45,7 @@ class UsersController
         echo ($jsonReponse);
     }
 
-    public function getUpdateUsers()
+    public function getUpdateUsers($name, $first_name, $activity, $password, $mail)
     {
         $usersRepository = new UsersRepository();
         $usersUpdate = $usersRepository->getUpdate($name, $first_name, $activity, $password, $mail);
