@@ -16,19 +16,128 @@
 <body>
   <header class="navbar flex">
     <p class="logo">SIMPLON</p>
-    <a href="">Connexion</a>
+    <script>
+      if (actif === true) {
+        <a href="" id="connexion">Connexion</a>
+      } else {
+        <a href="" id="deconnexion">Déconnexion</a>
+      }
+    </script>
   </header>
 
-  <main class="connexion">
-    <h1>Bienvenue</h1>
+  <main>
+  <!-- CONNEXION -->
+    <section id="connexion_mail">
+      <h1>Bienvenue</h1>
 
-    <form action="" method="post" class="flex">
+      <form action="" method="post" class="flex">
+        <div>
+          <abbr title="requis"><label for="email">Email *</abbr></label>
+          <input type="email" placeholder="email@simplon.co" required>
+      </div>
+        <input type="submit" value="Connexion" class="btn_blue">
+      </form>
+    </section>
+
+    <section id="confirmer_password none">
+      <h1>Bienvenue</h1>
+
+      <form action="" method="post" class="flex">
+        <div>
+          <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
+          <input type="password" required>
+          <abbr title="requis"><label for="password">Confirmer mot de passe *</abbr></label>
+          <input type="password" required>
+      </div>
+        <input type="submit" value="Connexion" class="btn_blue">
+      </form>
+    </section>
+
+    <section id="connexion_password none">
+      <h1>Bienvenue</h1>
+
+      <form action="" method="post" class="flex">
+        <div>
+          <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
+          <input type="password" required>
+      </div>
+        <input type="submit" value="Connexion" class="btn_blue">
+      </form>
+    </section>
+
+  <!-- COURS DU JOUR -->
+    <section id="courses">
+      <div class="menu">
+        <a class="active">Acceuil</a>
+        <a>Promotions</a>
+        <a>Utilisateurs</a>
+      </div>
+
+      <h1>Cours du jour</h1>
+
+      <div class="card_course">
+        <div>
+          <h2 id="class_name">Nom de la classe</h2>
+          <p id="class_number">Nb de participants</p>
+        </div>
+        <div>
+          <p id="course_date">Date du cours</p>
+          <button class="btn_blue">État de la signature</button>
+        </div>
+      </div>
+    </section>
+
+  <!-- LISTE PROMOTION -->
+    <section>
+      <div class="menu">
+        <a>Acceuil</a>
+        <a class="active">Promotions</a>
+        <a>Utilisateurs</a>
+      </div>
+
+      <h1>Toutes les promotions</h1>
+      <p>Tableau des promotions de Simplon</p>
+
+      <button class="btn_sucess">Ajouter promotion</button>
+
       <div>
-        <abbr title="requis"><label for="email">Email *</abbr></label>
-        <input type="email" placeholder="email@simplon.co" required>
-    </div>
-      <input type="submit" value="Connexion" class="btn_blue">
-    </form>
+        <table>
+          <thead>
+            <tr>
+              <th></th> <!-- Colonne des cases à cocher -->
+              <th>Promotion</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Places</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>Donnée 1.1</td>
+              <td>Donnée 1.2</td>
+              <td>Donnée 1.3</td>
+              <td>Donnée 1.4</td>
+
+              <td><button>Voir</button></td>
+              <td><button>Éditer</button></td>
+              <td><button>Supprimer</button></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>Donnée 2.1</td>
+              <td>Donnée 2.2</td>
+              <td>Donnée 2.3</td>
+              <td>Donnée 2.4</td>
+              
+              <td><button>Voir</button></td>
+              <td><button>Éditer</button></td>
+              <td><button>Supprimer</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
   </main>
 
