@@ -12,33 +12,33 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $userController->getAllUsers();
-                $userController->getUpdateUsers($name, $first_name, $activity, $password, $mail);
-                $userController->getDeleteUsers($id_users);
+                // $userController->getUpdateUsers($name, $first_name, $activity, $password, $mail);
+                // $userController->getDeleteUsers($id_users);
                 break;
             case 'POST':
-                $userController->getCreateUsers($name, $first_name, $activity, $password, $mail);
+                // $userController->getCreateUsers($name, $first_name, $activity, $password, $mail);
                 break;
         }
     case API_COURS:
         switch ($methode) {
             case 'GET':
                 $coursController->getAllCours();
-                $coursController->updateCours($id, $jour, $periode, $idPromo);
-                $coursController->deleteCours($id);
+                // $coursController->updateCours($id, $jour, $periode, $idPromo);
+                // $coursController->deleteCours($id);
                 break;
             case 'POST':
-                $coursController->createCours($jour, $periode, $idPromo);
+                // $coursController->createCours($jour, $periode, $idPromo);
                 break;
         }
     case API_PROMO:
         switch ($methode) {
             case 'GET':
                 $promoController->getAllPromo();
-                $promoController->updateCours($id, $nom, $dateDebut, $dateFin, $places);
-                $promoController->deleteCoursById($id);
+                // $promoController->updateCours($id, $nom, $dateDebut, $dateFin, $places);
+                // $promoController->deleteCoursById($id);
                 break;
             case 'POST':
-                $promoController->createCours($nom, $dateDebut, $dateFin, $places);
+                // $promoController->createCours($nom, $dateDebut, $dateFin, $places);
                 break;
         }
         break;
