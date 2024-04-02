@@ -20,17 +20,17 @@ class UsersController
         echo ($jsonReponse);
     }
 
-    public function getDeleteUsers($id_users)
-    {
-        $usersRepository = new UsersRepository();
-        $usersDelete = $usersRepository->getDelete($id_users);
+    // public function getDeleteUsers($id_users)
+    // {
+    //     $usersRepository = new UsersRepository();
+    //     $usersDelete = $usersRepository->getDelete($id_users);
 
-        $jsonReponse = json_encode($usersDelete);
+    //     $jsonReponse = json_encode($usersDelete);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonReponse);
-    }
+    //     echo ($jsonReponse);
+    // }
 
     public function getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
@@ -38,11 +38,11 @@ class UsersController
 
         $usersCreate = $usersRepository->getCreate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-        $jsonReponse = json_encode($usersCreate);
+    //     $jsonReponse = json_encode($usersCreate);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonReponse);
+    //     echo ($jsonReponse);
     }
 
     public function getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
@@ -50,11 +50,12 @@ class UsersController
         $usersRepository = new UsersRepository();
         $usersUpdate = $usersRepository->getUpdate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-        $jsonReponse = json_encode($usersUpdate);
+    //     $jsonReponse = json_encode($usersUpdate);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonReponse);
+    //     echo ($jsonReponse);
     }
 
 }
+

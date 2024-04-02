@@ -20,51 +20,52 @@ class PromoController
         echo ($jsonResponse);
     }
 
-    public function getById($id)
-    {
-        $promoRepository = new PromoRepository();
-        $promo = $promoRepository->getById($id);
+    // public function getById($id)
+    // {
+    //     $promoRepository = new PromoRepository();
+    //     $promo = $promoRepository->getById($id);
 
-        $jsonResponse = json_encode($promo);
+    //     $jsonResponse = json_encode($promo);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonResponse);
-    }
+    //     echo ($jsonResponse);
+    // }
 
-    public function createCours($nom, $dateDebut, $dateFin, $places)
-    {
-        $promoRepository = new PromoRepository();
-        $id = $promoRepository->create($nom, $dateDebut, $dateFin, $places);
+    // public function createCours($nom, $dateDebut, $dateFin, $places)
+    // {
+    //     $promoRepository = new PromoRepository();
+    //     $id = $promoRepository->create($nom, $dateDebut, $dateFin, $places);
 
-        $jsonResponse = json_encode(['id' => $id]);
+    //     $jsonResponse = json_encode(['id' => $id]);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonResponse);
-    }
+    //     echo ($jsonResponse);
+    // }
 
-    public function updateCours($id, $nom, $dateDebut, $dateFin, $places)
-    {
-        $promoRepository = new PromoRepository();
-        $promoRepository->update($id, $nom, $dateDebut, $dateFin, $places);
+    // public function updateCours($id, $nom, $dateDebut, $dateFin, $places)
+    // {
+    //     $promoRepository = new PromoRepository();
+    //     $promoRepository->update($id, $nom, $dateDebut, $dateFin, $places);
 
-        $jsonResponse = json_encode(['status' => 'success']);
+    //     $jsonResponse = json_encode(['status' => 'success']);
 
-        header('Content-Type: application/json');
+    //     header('Content-Type: application/json');
 
-        echo ($jsonResponse);
-    }
+    //     echo ($jsonResponse);
+    // }
 
-    public function deleteCoursById($id)
-    {
-        $promoRepository = new PromoRepository();
-        $promoRepository->delete($id);
+    // public function deleteCoursById($id)
+    // {
+    //     $promoRepository = new PromoRepository();
+    //     $promoRepository->delete($id);
 
-        $jsonResponse = json_encode(['status' => 'success']);
 
-        header('Content-Type: application/json');
+    //     $jsonResponse = json_encode(['status' => 'success']);
 
-        echo ($jsonResponse);
-    }
+    //     header('Content-Type: application/json');
+
+    //     echo ($jsonResponse);
+    // }
 }
