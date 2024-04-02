@@ -1,0 +1,104 @@
+:root {
+  --main_color:#0D6EFD;
+  --second_color: #F8F9FA;
+  --gray_color: #6C757D;
+  --success_color : #198754;
+  --warning_color : #FFC107;
+  --danger_color: #DC3545;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* DISPLAYS */
+
+.flex {
+  display: flex;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+/* BUTTONS */
+
+.btn_blue {
+  border-radius: 4px;
+  background-color: var(--main_color);
+  color: var(--second_color);
+  padding: 6px 12px;
+}
+
+.btn_gray {
+  border-radius: 4px;
+  background-color: var(--gray_color);
+  padding: 6px 12px;
+}
+
+.btn_succes {
+  border-radius: 4px;
+  background-color: var(--success_color);
+  color: var(--second_color);
+  padding: 6px 12px;
+}
+
+.btn_warning {
+  border-radius: 4px;
+  background-color: var(--warning_color);
+  padding: 6px 12px;
+}
+
+.btn_delete {
+  border-radius: 4px;
+  background-color: var(--danger_color);
+  color: var(--second_color);
+  padding: 6px 12px;
+}
+
+/* NAVBAR */
+
+.navbar {
+  background-color: var(--second_color);
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.navbar a {
+  font-weight: 700;
+}
+
+/* FORM */
+
+main.connexion {
+  width: 400px;
+  margin: 200px auto;
+  background-color: var(--second_color);
+  padding: 20px;
+}
+
+.connexion h1 {
+  text-align: center;
+}
+
+.connexion form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.connexion input.btn_blue, form div {
+  margin: 20px auto;
+  width: min-content;
+}
+
+div input {
+  height: 24px;
+  width: 320px;
+  border: 1px solid var(--gray_color);
+  text-align: center;
+  margin: 10px 0;
+}
