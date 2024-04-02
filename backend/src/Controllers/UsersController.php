@@ -35,7 +35,7 @@ class UsersController
     public function getCreateUsers()
     {
         $usersRepository = new UsersRepository();
-        $usersCreate = $usersRepository->getCreate();
+        $usersCreate = $usersRepository->getCreate($name, $first_name, $activity, $password, $mail);
 
         $jsonReponse = json_encode($usersCreate);
 
