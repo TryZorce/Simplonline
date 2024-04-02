@@ -11,9 +11,6 @@ switch ($route) {
             case 'GET':
                 $studentController->getAllStudent();
                 break;
-            case 'POST':
-                $studentController->createStudent();
-                break;
         }
         break;
 }
