@@ -5,58 +5,33 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./assets/styles/global.css" />
-  <link rel="stylesheet" href="./assets/styles/exercice.css" />
-  <title>EXO JS - fetch une API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles/reset.css" />
+  <link rel="stylesheet" href="./assets/styles/style.css" />
+  <title>Simplonline</title>
 </head>
 
 <body>
-  <main>
-    <article class="exercicePlayground">
-      <div class="exerciceHeader">
-        <div class="exerciceToolbar">
-          <div class="exerciceToolbarLeftboxStorage">
-            <h1>Exercice JS - fetch une API</h1>
-          </div>
-        </div>
-        <div>
-          <p>Intéragir avec une API</p>
-        </div>
-      </div>
-      <ul class="exerciceList">
-        <li>
-          <section class="exercice">
-            <h2 class="exerciceTitle">Correction 1</h2>
-            <div class="exerciceboxStorage">
-              <button id="buttonExercice1">console log du tableau d'étudiants</button>
-            </div>
-          </section>
-        </li>
-      </ul>
-      <ul class="exerciceList">
-        <li>
-          <section class="exercice">
-            <h2 class="exerciceTitle">Correction 2</h2>
-            <div class="exerciceboxStorage">
-              <form>
-                <div>
-                  <label for="name">Nom de compte *</label><br>
-                  <input required type="text" id="name" name="name"><br>
-                </div>
-                <div style="margin-top: 20px">
-                  <label for="password">Mot de passe *</label><br>
-                  <input required type="password" id="password" name="password"><br>
-                </div>
-                <div style="margin-top: 20px">
-                  <button id="signUpSubmitButton">Envoyer</button>
-                </div>
-              </form>
-            </div>
-          </section>
-        </li>
-      </ul>
-    </article>
+  <header class="navbar flex">
+    <p class="logo">SIMPLON</p>
+    <a href="">Connexion</a>
+  </header>
+
+  <main class="connexion">
+    <h1>Bienvenue</h1>
+
+    <form action="" method="post" class="flex">
+      <div>
+        <abbr title="requis"><label for="email">Email *</abbr></label>
+        <input type="email" placeholder="email@simplon.co" required>
+    </div>
+      <input type="submit" value="Connexion" class="btn_blue">
+    </form>
+
   </main>
+
   <script src="./script.js"></script>
 </body>
 
