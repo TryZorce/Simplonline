@@ -4,7 +4,7 @@ class UsersRepository extends Database
 {
     public function getAll()
     {
-        $req = $this->getDb()->query('SELECT * FROM student');
+        $req = $this->getDb()->query('SELECT * FROM users');
 
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
 
