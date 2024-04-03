@@ -94,7 +94,6 @@ class UsersRepository extends Database
 
         if ($user && password_verify($password, $user['password'])) {
 
-            
             $email = $_POST['email'];
             $password = $_POST['password'];
 
