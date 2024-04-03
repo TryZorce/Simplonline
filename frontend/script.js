@@ -1,5 +1,6 @@
 const url = "http://localhost:3000/backend/public";
 
+
 document
   .getElementById("connexion_email")
   .addEventListener("click", () => fetchGet(url));

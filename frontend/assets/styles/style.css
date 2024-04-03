@@ -75,6 +75,7 @@ body {
 /* FORM */
 
 section#connexion_mail, section#connexion_password form, section#confirm_password form {
+
   width: 400px;
   margin: 200px auto;
   background-color: var(--second_color);
@@ -86,11 +87,16 @@ section#connexion_mail, section#connexion_password form, section#confirm_passwor
 }
 
 #connexion_mail form, #connexion_password form, #confirm_password form {
+  text-align: center;
+}
+
+#connexion_mail form, #connexion_password form, #confirm_password form {
   display: flex;
   flex-flow: column wrap;
 }
 
 #connexion_mail input.btn_blue, #connexion_password input.btn_blue,#confirm_password input.btn_blue, form div {
+
   margin: 20px auto;
   width: min-content;
 }
