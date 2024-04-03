@@ -74,23 +74,23 @@ body {
 
 /* FORM */
 
-section#connexion_mail, section#connexion_password form, section#confirmer_password form {
+section#connexion_mail, section#connexion_password form, section#confirm_password form {
   width: 400px;
   margin: 200px auto;
   background-color: var(--second_color);
   padding: 20px;
 }
 
-#connexion_mail h1, #connexion_password h1, #confirmer_password h1 {
+#connexion_mail h1, #connexion_password h1, #confirm_password h1 {
   text-align: center;
 }
 
-#connexion_mail form, #connexion_password form, #confirmer_password form {
+#connexion_mail form, #connexion_password form, #confirm_password form {
   display: flex;
   flex-flow: column wrap;
 }
 
-#connexion_mail input.btn_blue, #connexion_password input.btn_blue,#confirmer_password input.btn_blue, form div {
+#connexion_mail input.btn_blue, #connexion_password input.btn_blue,#confirm_password input.btn_blue, form div {
   margin: 20px auto;
   width: min-content;
 }
