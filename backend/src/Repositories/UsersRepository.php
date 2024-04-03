@@ -71,4 +71,37 @@ class UsersRepository extends Database
 
         return $req->fetchAll(PDO::FETCH_CLASS, Users::class);
     }
+
+    public function verifMail($mail)
+    {
+        $sql = "SELECT * FROM users WHERE mail = :mail";
+        $stmt = $this->getDb()->prepare($sql);
+        $stmt->bindParam(':mail', $mail);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'users');
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+
+    public function login($mail, $password)
+    {
+        $sql = "SELECT * FROM users WHERE mail = :mail";
+        $stmt = $this->getDb()->prepare($sql);
+        $stmt->bindParam(':mail', $mail);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $result = $this->login($email, $password);
+            
+            return $result;
+        } else {
+            return false;
+        }
+    }
 }
