@@ -3,6 +3,7 @@
 $userController = new UsersController();
 $coursController = new CoursController();
 $promoController = new PromoController();
+$errorController = new ErrorController();
 
 $route = $_SERVER['REQUEST_URI'];
 $methode = $_SERVER['REQUEST_METHOD'];
@@ -12,6 +13,7 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $userController->getAllUsers();
+
                // $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
                // $userController->getDeleteUsers($id_users);
                 break;
@@ -42,4 +44,6 @@ switch ($route) {
                 break;
         }
         break;
+        default:
+        $errorController->notFound();
 }

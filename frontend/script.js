@@ -1,9 +1,8 @@
-const apiStudentsUrl =
-  "http://localhost/~kevin/PHP/exercice_php_api_fetch_campus/_correction/backend/public/api/student";
+const url = "http://localhost:3000/backend/public";
 
 document
-  .getElementById("buttonExercice1")
-  .addEventListener("click", () => fetchGet(apiStudentsUrl));
+  .getElementById("connexion_email")
+  .addEventListener("click", () => fetchGet(url));
 
 function fetchGet(url) {
   fetch(url)
@@ -22,21 +21,23 @@ function fetchGet(url) {
 }
 
 document
-  .getElementById("signUpSubmitButton")
+  .getElementById("connexion_email")
   .addEventListener("click", signUpRequest);
 
 function signUpRequest(event) {
   event.preventDefault();
 
-  const name = document.getElementById("name").value;
+  // const name = document.getElementById("name").value;
   const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value;
 
   const requestBody = {
-    name: name,
+    // name: name,
     password: password,
+    email: email,
   };
 
-  fetchPost(apiStudentsUrl, requestBody);
+  fetchPost(url, requestBody);
 }
 
 function fetchPost(url, body) {
@@ -60,3 +61,10 @@ function fetchPost(url, body) {
       console.error("Erreur lors de la requête :", error);
     });
 }
+
+fetchPost("http://localhost:3000/backend/public", { key: "value" });
+
+// Si tu veux l'utiliser sur un bouton au clic du formulaire par ex :
+document
+  .getElementById("connexion_email")
+  .addEventListener("click", () => fetchPost(url, { key: "value" }));

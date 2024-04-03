@@ -16,23 +16,128 @@
 <body>
   <header class="navbar flex">
     <p class="logo">SIMPLON</p>
-    <a href="">Connexion</a>
+    <div id="user_status"></div>
   </header>
 
-  <main class="connexion">
-    <h1>Bienvenue</h1>
+  <main>
+    <!-- CONNEXION -->
+    <section id="connexion_mail">
 
-    <form action="" method="post" class="flex">
-      <div>
-        <abbr title="requis"><label for="email">Email *</abbr></label>
-        <input type="email" placeholder="email@simplon.co" required>
-    </div>
-      <input type="submit" value="Connexion" class="btn_blue">
-    </form>
+      <form action="" method="post" class="flex">
+        <h1>Bienvenue</h1>
+        <div>
+          <abbr title="requis"><label for="email">Email *</abbr></label>
+          <input type="email" name="email" placeholder="email@simplon.co" required>
+          <span id="msgbox" class="none"></span>
+        </div>
+        <input type="submit" value="Connexion" class="btn_blue" id="connexion_email">
+      </form>
+    </section>
 
+    <section id="confirm_password" class="none">
+      <form action="" method="post" class="flex">
+        <h1>Bienvenue</h1>
+        <div>
+          <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
+          <input type="password" name="password" required>
+          <abbr title="requis"><label for="password">Confirmer mot de passe *</abbr></label>
+          <input type="password" name="confirm_password" required>
+          <span id="msgbox" class="none"></span>
+        </div>
+        <input type="submit" value="Connexion" class="btn_blue" id="setup_password">
+      </form>
+
+    </section>
+
+    <section id="connexion_password" class="none">
+      <form action="" method="post" class="flex">
+        <h1>Bienvenue</h1>
+        <div>
+          <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
+          <input type="password" required>
+          <span id="msgbox" class="none"></span>
+        </div>
+        <input type="submit" value="Connexion" class="btn_blue" id="connexion_password_btn">
+      </form>
+    </section>
+
+  <!-- INTERFACE QUAND QUELQU'UN EST CONNECTÉ -->
+    <section id="logged_in" class="none">
+
+      <div class="menu">
+        <a class="active">Accueil</a>
+        <a>Promotions</a>
+        <a>Utilisateurs</a>
+      </div>
+
+    <!-- COURS DU JOUR -->
+      <article id="courses">
+
+        <h1>Cours du jour</h1>
+
+        <div class="card_course">
+          <div>
+            <h2 id="class_name">Nom de la classe</h2>
+            <p id="class_number">Nb de participants</p>
+          </div>
+          <div>
+            <p id="course_date">Date du cours</p>
+            <button class="btn_blue">État de la signature</button>
+          </div>
+        </div>
+      </article>
+
+    <!-- LISTE PROMOTION -->
+      <article>
+
+        <h1>Toutes les promotions</h1>
+        <p>Tableau des promotions de Simplon</p>
+
+        <button class="btn_sucess">Ajouter promotion</button>
+
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th></th> <!-- Colonne des cases à cocher -->
+                <th>Promotion</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Places</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>Donnée 1.1</td>
+                <td>Donnée 1.2</td>
+                <td>Donnée 1.3</td>
+                <td>Donnée 1.4</td>
+
+                <td><button>Voir</button></td>
+                <td><button>Éditer</button></td>
+                <td><button>Supprimer</button></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>Donnée 2.1</td>
+                <td>Donnée 2.2</td>
+                <td>Donnée 2.3</td>
+                <td>Donnée 2.4</td>
+                
+                <td><button>Voir</button></td>
+                <td><button>Éditer</button></td>
+                <td><button>Supprimer</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
   </main>
 
   <script src="./script.js"></script>
+  <script src="./ajax.js"></script>
 </body>
 
 </html>

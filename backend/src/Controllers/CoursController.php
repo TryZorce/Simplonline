@@ -7,15 +7,15 @@ class CoursController
 {
     use Response;
     use Cors;
-
+    
     public function getAllCours()
     {
         $coursRepository = new CoursRepository();
         $cours = $coursRepository->getAll();
-
+        
+        header('Content-Type: application/json');
         $jsonResponse = json_encode($cours);
 
-        header('Content-Type: application/json');
 
         echo ($jsonResponse);
     }
@@ -65,3 +65,4 @@ class CoursController
     //     echo "Cours deleted successfully";
     // }
 }
+?>
