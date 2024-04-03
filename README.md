@@ -45,7 +45,7 @@ Pour vous aider à vous concentrer uniquement sur le cœur de votre métier, un 
 
 Vous avez 8 demi-journée pour réaliser le projet, à rendre le 05/04/2024. Travail en groupe de 4.
 
-Joana / Jasmine / Mathis / Christopher
+[Joana](https://github.com/JoanaSolaki) / [Jasmine](https://github.com/JoanaSolaki) / [Mathis](https://github.com/1-mathis) / [Christopher](https://github.com/TryZorce)
 
 ## Livrables
 
