@@ -13,37 +13,112 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $userController->getAllUsers();
-                // $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
-                // $userController->getDeleteUsers($id_users);
                 break;
             case 'POST':
                 $usersVerfiMail = $usersRepository->verifMail($mail);
-                $userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
-
                 break;
         }
+
+        break;
+
+    case API_USERS . '/update':
+        switch ($methode) {
+            case 'GET':
+                $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
+                break;
+            case 'POST':
+                $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
+                break;
+        }
+
+        break;
+
+    case API_USERS . '/create':
+        switch ($methode) {
+            case 'POST':
+                $userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
+                break;
+        }
+
+        break;
+
     case API_COURS:
         switch ($methode) {
             case 'GET':
                 $coursController->getAllCours();
-                // $coursController->updateCours($id, $jour, $periode, $idPromo);
-                //$coursController->deleteCours($id);
-                break;
-            case 'POST':
-                // $coursController->createCours($jour, $periode, $idPromo);
                 break;
         }
+
+        break;
+
+    case API_COURS . '/update':
+        switch ($methode) {
+            case 'GET':
+                $coursController->updateCours($id, $jour, $periode, $idPromo);
+                break;
+            case 'POST':
+                $coursController->updateCours($id, $jour, $periode, $idPromo);
+                break;
+        }
+
+        break;
+
+    case API_COURS . '/delete':
+        switch ($methode) {
+            case 'GET':
+                $coursController->deleteCours($id);
+                break;
+        }
+
+        break;
+
+    case API_COURS . '/create':
+        switch ($methode) {
+            case 'POST':
+                $coursController->createCours($jour, $periode, $idPromo);
+                break;
+        }
+
+        break;
+
     case API_PROMO:
         switch ($methode) {
             case 'GET':
                 $promoController->getAllPromo();
-                // $promoController->updateCours($id, $nom, $dateDebut, $dateFin, $places);
-                //$promoController->deleteCoursById($id);
-                break;
-            case 'POST':
-                // $promoController->createCours($nom, $dateDebut, $dateFin, $places);
                 break;
         }
+
+        break;
+
+    case API_PROMO . '/create':
+        switch ($methode) {
+            case 'POST':
+                $promoController->createPromo($nom, $dateDebut, $dateFin, $places);
+                break;
+        }
+
+        break;
+
+    case API_PROMO . '/update':
+        switch ($methode) {
+            case 'GET':
+                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
+                break;
+
+            case 'POST':
+                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
+                break;
+        }
+
+        break;
+
+    case API_PROMO . '/delete':
+        switch ($methode) {
+            case 'GET':
+                $promoController->deletePromoById($id);
+                break;
+        }
+
         break;
     default:
         $errorController->notFound();
