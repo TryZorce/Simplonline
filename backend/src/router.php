@@ -16,17 +16,17 @@ switch ($route) {
                 break;
             case 'POST':
                 $usersVerfiMail = $usersRepository->verifMail($mail);
-                break;
+                break;}
 
         break;
 
     case API_USERS . '/update':
         switch ($methode) {
             case 'GET':
-                $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
+                $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
                 break;
             case 'POST':
-                $userController->getUpdateUsers($id_users, $nom, $prénom, $activité, $mot_de_passe, $mail);
+                $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
                 break;
         }
 
