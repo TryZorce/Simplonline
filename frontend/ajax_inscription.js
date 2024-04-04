@@ -50,16 +50,16 @@ user_form.addEventListener("click", (event) => {
 
 function submitForm() {
     const name = document.getElementById('name').value;
-    const firstName = document.getElementById('surname').value;
+    const surname = document.getElementById('surname').value;
     const email = document.getElementById('email').value;
     const role = document.getElementById('role').value;
     const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
 
     const formData = {
-        name: name,
-        firstName: firstName,
-        email: email,
-        role: role,
+        nom: name,
+        prénom: surname,
+        mail: email,
+        id_role: role,
         promo: promo
     };
 
