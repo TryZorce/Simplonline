@@ -43,7 +43,7 @@ fetch('', {
 });
 
 const user_form = document.getElementById("user_form");
-connexion_password.addEventListener("click", (event) => {
+user_form.addEventListener("click", (event) => {
     event.preventDefault();
     submitForm();
 });
