@@ -17,7 +17,6 @@ switch ($route) {
             case 'POST':
                 $usersVerfiMail = $usersRepository->verifMail($mail);
                 break;
-        }
 
         break;
 
