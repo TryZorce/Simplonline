@@ -17,5 +17,10 @@ a, abbr {
 }
 
 .btn_blue, .btn_gray, .btn_sucess, .btn_warning, .btn_delete, input, button {
-  border: none
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  background-color: inherit;
+  font-size: 1em;
+  cursor: pointer;
 }
