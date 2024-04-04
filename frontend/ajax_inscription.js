@@ -22,26 +22,6 @@ return response.json();
 console.error("Erreur lors de la requête :", error);
 });
 
-fetch('', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify()
-})
-.then((response) => {
-    if (!response.ok) {
-        throw new Error("Erreur de réseau : " + response.status);
-    }
-    return response.json();
-})
-.then((data) => {
-    console.log(data);
-})
-.catch((error) => {
-    console.error("Erreur lors de la requête :", error);
-});
-
 const user_form = document.getElementById("user_form");
 user_form.addEventListener("click", (event) => {
     event.preventDefault();

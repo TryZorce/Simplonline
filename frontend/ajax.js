@@ -76,6 +76,14 @@ function log_in (success_login) {
     if (success_login === true) {
         const logged_interface = document.getElementById('logged_in');
         const courses = document.getElementById('courses');
+        const connexion_password = document.getElementById("connexion_password");
+        const confirm_password = document.getElementById("confirm_password");
+
+        connexion_password.classList.remove('block');
+        connexion_password.classList.add('none');
+
+        confirm_password.classList.remove('block');
+        confirm_password.classList.add('none');
 
         logged_interface.classList.remove('none');
         logged_interface.classList.add('block');
@@ -91,17 +99,17 @@ function log_in (success_login) {
             return response.json();
             })
             .then((data) => {
-                const card_course = document.getElementByClassName('card_course'[0]);
+                const list_courses = document.getElementsByClassName('list_courses')[0];
                 data.forEach((cours) => {
-                    const first_div = document.createElement('div');
-                    const second_div = document.createElement('div');
-                    first_div.innerHTML = `<h2>Nom de la classe</h2>
-                    <p>Nb de participants</p>`;
-                    second_div.innerHTML = `<p>${cours.jour}</p>
-                    <button class="btn_blue">État de la signature</button>`;
+                    const card_course = document.createElement('div');
+                    card_course.classList.add('card_course');
+                    card_course.classList.add('flex');
+                    card_course.innerHTML = `<div> <h2>Nom de la classe</h2>
+                    <p>Nb de participants</p> </div>
+                    <div><p>${cours.jour}</p>
+                    <button class="btn_blue">État de la signature</button</div>`;
     
-                    card_course.appendChild(first_div);
-                    card_course.appendChild(second_div);
+                    list_courses.appendChild(card_course);
                 });
                 console.log(data);
             })

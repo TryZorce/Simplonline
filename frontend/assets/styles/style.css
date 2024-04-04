@@ -11,6 +11,19 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+button {
+  padding: 6px 12px;
+}
+
+h1, h2, h3, p, span {
+  margin: 20px 0px;
+}
+
 /* DISPLAYS */
 
 .flex {
@@ -72,10 +85,13 @@ body {
   font-weight: 700;
 }
 
+.logo {
+  margin: 0;
+}
+
 /* FORM */
 
 section#connexion_mail, section#connexion_password form, section#confirm_password form, #create_user {
-
   width: 400px;
   margin: 200px auto;
   background-color: var(--second_color);
@@ -96,7 +112,6 @@ section#connexion_mail, section#connexion_password form, section#confirm_passwor
 }
 
 #connexion_mail input.btn_blue, #connexion_password input.btn_blue,#confirm_password input.btn_blue, form div {
-
   margin: 20px auto;
   width: min-content;
 }
@@ -107,4 +122,32 @@ div input {
   border: 1px solid var(--gray_color);
   text-align: center;
   margin: 10px 0;
+}
+
+/* LOGGED IN */
+#logged_in {
+  width: 100%;
+}
+
+/* LOGGED MENU */
+
+.menu {
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 6px 2px -5px;
+}
+
+.menu button {
+  border: none;
+  color: var(--main_color);
+  margin: 0 10px;
+}
+
+.menu .active {
+  color: #6C757D;
+}
+
+.card_course {
+  background-color: var(--second_color);
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
