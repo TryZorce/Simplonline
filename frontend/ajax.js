@@ -1,6 +1,6 @@
-const cours_url = "/~tryzorce/CDA/Brief/Simplonline/backend/public/cours";
-const promo_url = "/~tryzorce/CDA/Brief/Simplonline/backend/public/promo";
-const users_url = "/~tryzorce/CDA/Brief/Simplonline/backend/public/users";
+const cours_url = "http://localhost:3000/backend/public/cours";
+const promo_url = "http://localhost:3000/backend/public/promo";
+const users_url = "http://localhost:3000/backend/public/users";
 
 const login = false;
 
