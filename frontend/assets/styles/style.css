@@ -53,7 +53,7 @@ h1, h2, h3, p, span {
   padding: 6px 12px;
 }
 
-.btn_succes {
+.btn_success {
   border-radius: 4px;
   background-color: var(--success_color);
   color: var(--second_color);
@@ -150,4 +150,15 @@ div input {
   width: 100%;
   justify-content: space-between;
   padding: 10px 20px;
+}
+
+/* PROMO */
+.title_promo, .title_users {
+  width: 100%;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.title_promo button, .title_users button {
+  height: fit-content;
 }
