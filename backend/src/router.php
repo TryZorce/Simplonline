@@ -17,7 +17,9 @@ switch ($route) {
                 // $userController->getDeleteUsers($id_users);
                 break;
             case 'POST':
+                $usersVerfiMail = $usersRepository->verifMail($mail);
                 //$userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
+
                 break;
         }
     case API_COURS:
@@ -43,6 +45,6 @@ switch ($route) {
                 break;
         }
         break;
-        default:
+    default:
         $errorController->notFound();
 }

@@ -38,11 +38,11 @@ class UsersController
 
         $usersCreate = $usersRepository->getCreate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-    //     $jsonReponse = json_encode($usersCreate);
+        //     $jsonReponse = json_encode($usersCreate);
 
-    //     header('Content-Type: application/json');
+        //     header('Content-Type: application/json');
 
-    //     echo ($jsonReponse);
+        //     echo ($jsonReponse);
     }
 
     public function getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail)
@@ -50,12 +50,36 @@ class UsersController
         $usersRepository = new UsersRepository();
         $usersUpdate = $usersRepository->getUpdate($nom, $prénom, $activité, $mot_de_passe, $mail);
 
-    //     $jsonReponse = json_encode($usersUpdate);
 
-    //     header('Content-Type: application/json');
+        //     $jsonReponse = json_encode($usersUpdate);
 
-    //     echo ($jsonReponse);
+        //     header('Content-Type: application/json');
+
+        //     echo ($jsonReponse);
     }
 
-}
+    public function getverifMail($mail)
+    {
+        $usersRepository = new UsersRepository();
+        $usersVerfiMail = $usersRepository->verifMail($mail);
 
+        $jsonReponse = json_encode($usersVerfiMail);
+
+        header('Content-Type: application/json');
+
+        echo ($jsonReponse);
+    }
+
+    public function getLogIn($mail, $password)
+    {
+
+        $usersRepository = new UsersRepository();
+        $usersLogIn = $usersRepository->login($mail, $password);
+
+        $jsonReponse = json_encode($usersLogIn);
+
+        header('Content-Type: application/json');
+
+        echo ($jsonReponse);
+    }
+}
