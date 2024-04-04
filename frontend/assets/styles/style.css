@@ -74,7 +74,7 @@ body {
 
 /* FORM */
 
-section#connexion_mail, section#connexion_password form, section#confirm_password form {
+section#connexion_mail, section#connexion_password form, section#confirm_password form, #create_user {
 
   width: 400px;
   margin: 200px auto;
