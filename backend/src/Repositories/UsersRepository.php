@@ -13,6 +13,14 @@ class UsersRepository extends Database
 
     public function getCreate($nom, $prénom, $activité, $mot_de_passe, $mail)
     {
+
+        $nom = $_POST['nom'];
+        $prénom = $_POST['prénom'];
+        $activité = $_POST['activité'];
+        $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
+        $mail = $_POST['mail'];
+
+
         $query = 'INSERT INTO users (nom, prénom, activité, mot_de_passe, mail) 
         VALUES (:nom, :prénom, :activité, :mot_de_passe, :mail)';
 
@@ -27,12 +35,6 @@ class UsersRepository extends Database
         ]);
 
         return $req->fetchAll(PDO::FETCH_CLASS, Users::class);
-
-        $nom = $_POST['nom'];
-        $prénom = $_POST['prenom'];
-        $activité = $_POST['activite'];
-        $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
-        $mail = $_POST['mail'];
 
         if ($req->rowCount() > 0) {
             echo json_encode(["message" => "Utilisateur créé avec succès"]);

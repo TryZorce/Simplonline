@@ -18,7 +18,7 @@ switch ($route) {
                 break;
             case 'POST':
                 $usersVerfiMail = $usersRepository->verifMail($mail);
-                //$userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
+                $userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
 
                 break;
         }
