@@ -92,16 +92,18 @@ function log_in (success_login) {
             })
             .then((data) => {
                 const card_course = document.getElementByClassName('card_course'[0]);
-                const first_div = document.createElement('div');
-                const second_div = document.createElement('div');
-                first_div.innerHTML = `<h2>Nom de la classe</h2>
-                <p>Nb de participants</p>`;
-                second_div.innerHTML = `<p>${data.jour}</p>
-                <button class="btn_blue">État de la signature</button>`;
-
+                data.forEach((cours) => {
+                    const first_div = document.createElement('div');
+                    const second_div = document.createElement('div');
+                    first_div.innerHTML = `<h2>Nom de la classe</h2>
+                    <p>Nb de participants</p>`;
+                    second_div.innerHTML = `<p>${cours.jour}</p>
+                    <button class="btn_blue">État de la signature</button>`;
+    
+                    card_course.appendChild(first_div);
+                    card_course.appendChild(second_div);
+                });
                 console.log(data);
-                card_course.appendChild(first_div);
-                card_course.appendChild(second_div);
             })
             .catch((error) => {
             console.error("Erreur lors de la requête :", error);
