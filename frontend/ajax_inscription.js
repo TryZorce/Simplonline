@@ -1,5 +1,6 @@
 //INSCRIPTION D'UTILISATEUR
 const promo_url = "http://localhost:3000/backend/public/promo";
+const users_url = "http://localhost:3000/backend/public/users";
 
 fetch(promo_url)
 .then((response) => {
@@ -20,3 +21,65 @@ return response.json();
 .catch((error) => {
 console.error("Erreur lors de la requête :", error);
 });
+
+fetch('', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify()
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error("Erreur de réseau : " + response.status);
+    }
+    return response.json();
+})
+.then((data) => {
+    console.log(data);
+})
+.catch((error) => {
+    console.error("Erreur lors de la requête :", error);
+});
+
+const user_form = document.getElementById("user_form");
+connexion_password.addEventListener("click", (event) => {
+    event.preventDefault();
+    submitForm();
+});
+
+function submitForm() {
+    const name = document.getElementById('name').value;
+    const firstName = document.getElementById('surname').value;
+    const email = document.getElementById('email').value;
+    const role = document.getElementById('role').value;
+    const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
+
+    const formData = {
+        name: name,
+        firstName: firstName,
+        email: email,
+        role: role,
+        promo: promo
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+}
