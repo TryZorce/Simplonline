@@ -1,7 +1,7 @@
 const cours_url = "http://localhost:3000/backend/public/cours";
 const promo_url = "http://localhost:3000/backend/public/promo";
 const users_url = "http://localhost:3000/backend/public/users";
-const cours_promo_url = "http://localhost:3000/backend/public/cours/coursandpromo";
+const cours_promo_url = "http://localhost:3000/backend/public/cours/coursjoinpromo";
 
 const login = false;
 
@@ -12,6 +12,13 @@ async function getAllUsers() {
         throw new Error("Erreur de réseau : " + response.status);
     }
     return await response.json();
+}
+
+function skipfunction() {
+    document.getElementById('connexion_mail').classList.add('none');
+    document.getElementById('connexion_mail').classList.remove('block');
+    document.getElementById('logged_in').classList.remove('none');
+    document.getElementById('logged_in').classList.add('block');
 }
 
 // Événement de soumission du formulaire d'e-mail
@@ -149,38 +156,7 @@ function log_in (success_login) {
         courses.classList.remove('none');
         courses.classList.add('block');
 
-        fetch(cours_url)
-        .then((response) => {
-        if (!response.ok) {
-            throw new Error("Erreur de réseau : " + response.status);
-        }
-        return response.json();
-        })
-        .then((data) => {
-            const list_courses = document.getElementsByClassName('list_courses')[0];
-            data.forEach((data) => {
-                const date_cours = new Date(data.jour);
-
-                const jour_cours = date_cours.getDate();
-                const mois_cours = date_cours.getMonth() + 1;
-                const année_cours = date_cours.getFullYear();
-    
-                const date_cours_format = `${jour_cours}-${mois_cours}-${année_cours}`;
-                
-                const card_course = document.createElement('div');
-                card_course.classList.add('card_course');
-                card_course.classList.add('flex');
-                card_course.innerHTML = `<div> <h2>Nom de la promo</h2>
-                <p>Nb participant</p></div>
-                <div><p>${date_cours_format}</p>
-                <button class="btn_blue">État de la signature</button</div>`;
-    
-                list_courses.appendChild(card_course);
-            });
-        })
-        .catch((error) => {
-        console.error("Erreur lors de la requête :", error);
-        });
+        show_home()
     } else {
         alert('Erreur de connexion, veuillez réessayer.');
     }
@@ -232,7 +208,7 @@ function show_home () {
     const list_courses = document.getElementsByClassName('list_courses')[0];
     list_courses.innerHTML = '';
 
-    fetch(cours_url)
+    fetch(cours_promo_url)
     .then((response) => {
     if (!response.ok) {
         throw new Error("Erreur de réseau : " + response.status);
@@ -253,14 +229,14 @@ function show_home () {
             const card_course = document.createElement('div');
             card_course.classList.add('card_course');
             card_course.classList.add('flex');
-            card_course.innerHTML = `<div> <h2>Nom de la promo</h2>
-            <p>Nb participant</p></div>
-            <div><p>${date_cours_format}</p>
+            card_course.innerHTML = `<div> <h2>${data.nom}</h2>
+            <p>Nombre de participant : ${data.places}</p></div>
+            <div><p>${date_cours_format} ${data.periode}</p>
             <button class="btn_blue">État de la signature</button</div>`;
 
             list_courses.appendChild(card_course);
         });
-    })
+        })
     .catch((error) => {
     console.error("Erreur lors de la requête :", error);
     });
