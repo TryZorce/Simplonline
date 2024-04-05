@@ -92,19 +92,4 @@ class UsersController
 
         echo json_encode(["user" => $usersVerfiMail]);
     }
-
-
-    public function getUsersCours()
-    {
-
-        $usersRepository = new UsersRepository();
-        $usersLogIn = $usersRepository->getUsersCours();
-
-        $jsonReponse = json_encode($usersLogIn);
-
-        header('Content-Type: application/json');
-
-        echo ($jsonReponse);
-        
-    }
 }

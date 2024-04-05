@@ -64,4 +64,16 @@ class CoursController
 
         echo "Cours deleted successfully";
     }
+
+    public function getCoursAndPromo()
+    {
+        $coursRepository = new CoursRepository();
+        $coursRepository->getCoursAndPromo();
+
+        header('Content-Type: application/json');
+        $jsonResponse = json_encode($coursRepository);
+
+
+        echo ($jsonResponse);
+    }
 }
