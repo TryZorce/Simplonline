@@ -143,3 +143,4 @@ switch ($route) {
     default:
         $errorController->notFound();
 }
+

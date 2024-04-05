@@ -25,10 +25,10 @@ console.error("Erreur lors de la requête :", error);
 const user_form = document.getElementById("user_form");
 user_form.addEventListener("click", (event) => {
     event.preventDefault();
-    submitForm();
+    submit_form_user();
 });
 
-function submitForm() {
+function submit_form_user() {
     const name = document.getElementById('name').value;
     const surname = document.getElementById('surname').value;
     const email = document.getElementById('email').value;
