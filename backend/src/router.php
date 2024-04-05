@@ -30,6 +30,7 @@ switch ($route) {
                 $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
                 break;
         }
+        
 
         break;
 
