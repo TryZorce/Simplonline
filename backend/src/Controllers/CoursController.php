@@ -64,4 +64,14 @@ class CoursController
 
         echo "Cours deleted successfully";
     }
+
+    public function getCoursJoinPromo () {
+        $coursRepository = new CoursRepository();
+        $data = $coursRepository->getCoursJoinPromo();
+
+        header('Content-Type: application/json');
+        $jsonResponse = json_encode($data);
+
+        echo ($jsonResponse);
+    }
 }

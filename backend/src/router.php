@@ -21,15 +21,6 @@ switch ($route) {
 
         break;
 
-    case API_USERS . '/innercours':
-        switch ($methode) {
-            case 'GET':
-                $userController->getUsersCours();
-                break;
-        }
-
-        break;
-
     case API_USERS . '/update':
         switch ($methode) {
             case 'GET':
@@ -39,6 +30,8 @@ switch ($route) {
                 $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
                 break;
         }
+        
+        
 
         break;
 
@@ -68,6 +61,16 @@ switch ($route) {
         }
 
         break;
+ 
+    case API_COURS . '/coursjoinpromo':
+        switch ($methode) {
+            case 'GET':
+                $coursController->getCoursJoinPromo();
+                break;
+        }
+
+        break;
+        
 
     case API_COURS . '/update':
         switch ($methode) {
@@ -124,6 +127,7 @@ switch ($route) {
                 break;
 
 
+
             case 'POST':
                 $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
                 break;
@@ -140,6 +144,8 @@ switch ($route) {
 
         break;
 
+
     default:
         $errorController->notFound();
 }
+
