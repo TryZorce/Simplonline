@@ -21,15 +21,6 @@ switch ($route) {
 
         break;
 
-    case API_USERS . '/innercours':
-        switch ($methode) {
-            case 'GET':
-                $userController->getUsersCours();
-                break;
-        }
-
-        break;
-
     case API_USERS . '/update':
         switch ($methode) {
             case 'GET':
@@ -55,6 +46,15 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $coursController->getAllCours();
+                break;
+        }
+
+        break;
+
+    case API_COURS . '/coursandpromo':
+        switch ($methode) {
+            case 'GET':
+                $coursController->getCoursAndPromo();
                 break;
         }
 

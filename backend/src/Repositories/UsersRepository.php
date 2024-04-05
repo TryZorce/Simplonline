@@ -119,32 +119,4 @@ class UsersRepository extends Database
             return false;
         }
     }
-
-    public function getUsersCours()
-    {
-        $query = "
-            SELECT 
-                Users.nom AS nom_utilisateur, 
-                Users.prénom AS prénom_utilisateur, 
-                Cours.periode AS période_cours, 
-                Cours.jour AS jour_cours,
-                Promo.nom AS nom_promo,
-                Rôles.nom AS nom_classe
-            FROM 
-                user_cours
-            INNER JOIN 
-                Users ON user_cours.id_users = Users.id_users
-            INNER JOIN 
-                Cours ON user_cours.id = Cours.id
-            INNER JOIN
-                Promo ON Cours.id_promo = Promo.id_promo
-            INNER JOIN
-                Rôles ON Users.id_role = Rôles.id_role;
-        ";
-
-        $req = $this->getDb()->prepare($query);
-        $req->execute();
-
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }
 }
