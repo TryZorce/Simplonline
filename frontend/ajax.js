@@ -148,7 +148,7 @@ function log_in (success_login) {
         courses.classList.remove('none');
         courses.classList.add('block');
 
-        fetch(cours_url)
+        fetch(users_url)
             .then((response) => {
             if (!response.ok) {
                 throw new Error("Erreur de réseau : " + response.status);
@@ -189,12 +189,28 @@ function show_home () {
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+    
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     promotions.classList.remove('block');
     promotions.classList.add('none');
 
     users.classList.remove('block');
     users.classList.add('none');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     courses.classList.remove('none');
     courses.classList.add('block');
@@ -245,6 +261,19 @@ function show_promotion () {
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+    
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     courses.classList.remove('block');
     courses.classList.add('none');
@@ -254,6 +283,9 @@ function show_promotion () {
 
     promotions.classList.remove('none');
     promotions.classList.add('block');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     home_btn.classList.remove('active');
     users_btn.classList.remove('active');
@@ -282,8 +314,8 @@ function show_promotion () {
                 <td>${promo.date_fin}
                 <td>${promo.places}
                 <td><button>Voir</button></td>
-                <td><button>Éditer</button></td>
-                <td><button>Supprimer</button></td>
+                <td><button onclick="update_promo()">Éditer</button></td>
+                <td><button onclick="delete_promo()">Supprimer</button></td>
                 `;
                 table_promo.appendChild(tr_promo);
             });
@@ -305,12 +337,28 @@ function show_users () {
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     courses.classList.remove('block');
     courses.classList.add('none');
 
     promotions.classList.remove('block');
     promotions.classList.add('none');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     users.classList.remove('none');
     users.classList.add('block');
@@ -342,7 +390,7 @@ function show_users () {
                 <td>${users.mail}
                 <td>${users.activité}
                 <td>${users.id_role}
-                <td><button>Éditer</button></td>
+                <td><button onclick="update_user()">Éditer</button></td>
                 <td><button>Supprimer</button></td>
                 `;
                 table_users.appendChild(tr_users);
@@ -352,6 +400,333 @@ function show_users () {
         console.error("Erreur lors de la requête :", error);
         });
 }
+
 // Appels aux fonctions pour récupérer les cours et les promotions
 getCourses();
 getPromotions();
+
+// CREATION PROMOTION
+function creation_promo () {
+    const promotions = document.getElementById('promotions');
+    const create_promo = document.getElementById('create_promo');
+
+    promotions.classList.remove('block');
+    promotions.classList.add('none');
+
+    create_promo.classList.remove('none');
+    create_promo.classList.add('block');
+        
+    const promo_form_btn = document.getElementById("promo_form_btn");
+    promo_form_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_form_promo();
+    });
+}
+
+function submit_form_promo() {
+    const name = document.getElementById('name_promo').value;
+    const debut_date = document.getElementById('debut_date').value;
+    const end_date = document.getElementById('end_date').value;
+    const available = document.getElementById('available').value;
+
+    const formData = {
+        nom: name,
+        date_début: debut_date,
+        date_fin: end_date,
+        places: available
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_promotion();
+}
+
+// UPDATE PROMOTION
+function update_promo () {
+    const promotions = document.getElementById('promotions');
+    const update_promo = document.getElementById('update_promo');
+
+    promotions.classList.remove('block');
+    promotions.classList.add('none');
+
+    update_promo.classList.remove('none');
+    update_promo.classList.add('block');
+        
+    const promo_update_btn = document.getElementById("promo_update_btn");
+    promo_update_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_update_promo();
+    });
+}
+
+function submit_update_promo() {
+    const name = document.getElementById('name_promo').value;
+    const debut_date = document.getElementById('debut_date').value;
+    const end_date = document.getElementById('end_date').value;
+    const available = document.getElementById('available').value;
+    const promo_id = promo_id;
+
+    const formData = {
+        nom: name,
+        date_début: debut_date,
+        date_fin: end_date,
+        places: available,
+        id_promo: promo_id
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_promotion();
+}
+
+//DELETE PROMOTION
+function delete_promo () {
+    const promo_id = promo_id;
+
+    const formData = {
+        id_promo: promo_id
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_promotion();
+}
+
+// CREATION USER
+function create_user () {
+    const users = document.getElementById('users');
+    const create_user = document.getElementById('create_user');
+
+    users.classList.remove('block');
+    users.classList.add('none');
+
+    create_user.classList.remove('none');
+    create_user.classList.add('block');
+
+    fetch(promo_url)
+    .then((response) => {
+    if (!response.ok) {
+        throw new Error("Erreur de réseau : " + response.status);
+    }
+    return response.json();
+    })
+    .then((data) => {
+        const select_promo = document.getElementById('promo');
+        data.forEach((promo) => {
+            const option = document.createElement('option');
+            option.value = promo.id_promo;
+            option.textContent = promo.nom;
+            select_promo.appendChild(option);
+        });
+    })
+    .catch((error) => {
+    console.error("Erreur lors de la requête :", error);
+    });
+        
+    const user_form_btn = document.getElementById("user_form_btn");
+    user_form_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_form_user();
+    });
+}
+
+function submit_form_user() {
+    const name = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const email = document.getElementById('email').value;
+    const role = document.getElementById('role').value;
+    const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
+
+    const formData = {
+        nom: name,
+        prénom: surname,
+        mail: email,
+        id_role: role,
+        promo: promo
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_users();
+}
+
+// UPDATE USER
+function update_user () {
+    const users = document.getElementById('users');
+    const update_user = document.getElementById('update_user');
+
+    users.classList.remove('block');
+    users.classList.add('none');
+
+    update_user.classList.remove('none');
+    update_user.classList.add('block');
+    
+    fetch(promo_url)
+    .then((response) => {
+    if (!response.ok) {
+        throw new Error("Erreur de réseau : " + response.status);
+    }
+    return response.json();
+    })
+    .then((data) => {
+        const select_promo = document.getElementById('promo');
+        data.forEach((promo) => {
+            const option = document.createElement('option');
+            option.value = promo.id_promo;
+            option.textContent = promo.nom;
+            select_promo.appendChild(option);
+        });
+    })
+    .catch((error) => {
+    console.error("Erreur lors de la requête :", error);
+    });
+        
+    const user_update_btn = document.getElementById("user_update_btn");
+    user_update_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_update_user();
+    });
+}
+
+function submit_update_user() {
+    const name = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const email = document.getElementById('email').value;
+    const role = document.getElementById('role').value;
+    const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
+    const user_id = user_id;
+
+    const formData = {
+        nom: name,
+        prénom: surname,
+        mail: email,
+        id_role: role,
+        promo: promo,
+        id_users : user_id
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_users();
+}
+
+//DELETE USER
+function delete_user () {
+    const user_id = user_id;
+
+    const formData = {
+        id_users: user_id
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la requête : ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Données envoyées avec succès : ', data);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête : ', error);
+    });
+
+    show_users();
+}
