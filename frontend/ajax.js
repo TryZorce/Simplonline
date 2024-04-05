@@ -1,6 +1,7 @@
 const cours_url = "http://localhost:3000/backend/public/cours";
 const promo_url = "http://localhost:3000/backend/public/promo";
 const users_url = "http://localhost:3000/backend/public/users";
+const cours_promo_url = "http://localhost:3000/backend/public/cours/coursandpromo";
 
 const login = false;
 
@@ -148,30 +149,38 @@ function log_in (success_login) {
         courses.classList.remove('none');
         courses.classList.add('block');
 
-        fetch(users_url)
-            .then((response) => {
-            if (!response.ok) {
-                throw new Error("Erreur de réseau : " + response.status);
-            }
-            return response.json();
-            })
-            .then((data) => {
-                const list_courses = document.getElementsByClassName('list_courses')[0];
-                data.forEach((cours) => {
-                    const card_course = document.createElement('div');
-                    card_course.classList.add('card_course');
-                    card_course.classList.add('flex');
-                    card_course.innerHTML = `<div> <h2>Nom de la classe</h2>
-                    <p>Nb de participants</p> </div>
-                    <div><p>${cours.jour}</p>
-                    <button class="btn_blue">État de la signature</button</div>`;
+        fetch(cours_url)
+        .then((response) => {
+        if (!response.ok) {
+            throw new Error("Erreur de réseau : " + response.status);
+        }
+        return response.json();
+        })
+        .then((data) => {
+            const list_courses = document.getElementsByClassName('list_courses')[0];
+            data.forEach((data) => {
+                const date_cours = new Date(data.jour);
 
-                    list_courses.appendChild(card_course);
-                });
-            })
-            .catch((error) => {
-            console.error("Erreur lors de la requête :", error);
+                const jour_cours = date_cours.getDate();
+                const mois_cours = date_cours.getMonth() + 1;
+                const année_cours = date_cours.getFullYear();
+    
+                const date_cours_format = `${jour_cours}-${mois_cours}-${année_cours}`;
+                
+                const card_course = document.createElement('div');
+                card_course.classList.add('card_course');
+                card_course.classList.add('flex');
+                card_course.innerHTML = `<div> <h2>Nom de la promo</h2>
+                <p>Nb participant</p></div>
+                <div><p>${date_cours_format}</p>
+                <button class="btn_blue">État de la signature</button</div>`;
+    
+                list_courses.appendChild(card_course);
             });
+        })
+        .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+        });
     } else {
         alert('Erreur de connexion, veuillez réessayer.');
     }
@@ -232,13 +241,21 @@ function show_home () {
     })
     .then((data) => {
         const list_courses = document.getElementsByClassName('list_courses')[0];
-        data.forEach((cours) => {
+        data.forEach((data) => {
+            const date_cours = new Date(data.jour);
+
+            const jour_cours = date_cours.getDate();
+            const mois_cours = date_cours.getMonth() + 1;
+            const année_cours = date_cours.getFullYear();
+
+            const date_cours_format = `${jour_cours}-${mois_cours}-${année_cours}`;
+            
             const card_course = document.createElement('div');
             card_course.classList.add('card_course');
             card_course.classList.add('flex');
-            card_course.innerHTML = `<div> <h2>Nom de la classe</h2>
-            <p>Nb de participants</p> </div>
-            <div><p>${cours.jour}</p>
+            card_course.innerHTML = `<div> <h2>Nom de la promo</h2>
+            <p>Nb participant</p></div>
+            <div><p>${date_cours_format}</p>
             <button class="btn_blue">État de la signature</button</div>`;
 
             list_courses.appendChild(card_course);
@@ -305,13 +322,26 @@ function show_promotion () {
         .then((data) => {
             const table_promo = document.getElementById('table_promo');
             data.forEach((promo) => {
-                const tr_promo = document.createElement('tr');
+                const date_debut = new Date(promo.date_début);
+                const date_fin = new Date(promo.date_fin);
 
+                const jour_debut = date_debut.getDate();
+                const mois_debut = date_debut.getMonth() + 1;
+                const année_debut = date_debut.getFullYear();
+
+                const jour_fin = date_fin.getDate();
+                const mois_fin = date_fin.getMonth() + 1;
+                const année_fin = date_fin.getFullYear();
+
+                const date_debut_format = `${jour_debut}-${mois_debut}-${année_debut}`;
+                const date_fin_format = `${jour_fin}-${mois_fin}-${année_fin}`;
+
+                const tr_promo = document.createElement('tr');
                 tr_promo.innerHTML = `
                 <td><input type="checkbox"></td>
                 <td>${promo.nom}
-                <td>${promo.date_début}
-                <td>${promo.date_fin}
+                <td>${date_debut_format}
+                <td>${date_fin_format}
                 <td>${promo.places}
                 <td><button>Voir</button></td>
                 <td><button onclick="update_promo()">Éditer</button></td>
@@ -381,15 +411,28 @@ function show_users () {
         .then((data) => {
             const table_users = document.getElementById('table_users');
             data.forEach((users) => {
-                const tr_users = document.createElement('tr');
+                let actif = ""
+                let role = "";
+                if (users.activité === 1) {
+                    actif = "Activé"
+                } else {
+                    actif = "Pas activé"
+                }
+                if (users.id_role === 1) {
+                    role = "Administrateur"
+                }
+                if (users.id_role === 2) {
+                    role = "Utilisateur"
+                }
 
+                const tr_users = document.createElement('tr');
                 tr_users.innerHTML = `
                 <td><input type="checkbox"></td>
                 <td>${users.nom}
                 <td>${users.prénom}
                 <td>${users.mail}
-                <td>${users.activité}
-                <td>${users.id_role}
+                <td>${actif}
+                <td>${role}
                 <td><button onclick="update_user()">Éditer</button></td>
                 <td><button>Supprimer</button></td>
                 `;
