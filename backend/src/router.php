@@ -1,4 +1,4 @@
-é<?php
+<?php
 
 $userController = new UsersController();
 $coursController = new CoursController();
