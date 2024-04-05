@@ -34,7 +34,7 @@ table#promo_all button {
   table#promo_all caption {
     background-image: none;
   }
-  table#promo_all thead {
+  table#promo_all thead, table input[type='checkbox'] {
     display: none;
   }
   table#promo_all tbody td {

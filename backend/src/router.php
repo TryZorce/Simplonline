@@ -1,4 +1,4 @@
-<?php
+é<?php
 
 $userController = new UsersController();
 $coursController = new CoursController();
@@ -31,6 +31,7 @@ switch ($route) {
                 break;
         }
         
+        
 
         break;
 
@@ -56,6 +57,24 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $coursController->getCoursAndPromo();
+                break;
+        }
+
+        break;
+
+    case API_COURS . '/coursandpromo':
+        switch ($methode) {
+            case 'GET':
+                $coursController->getCoursAndPromo();
+                break;
+        }
+
+        break;
+        
+    case API_COURS . '/coursjoinpromo':
+        switch ($methode) {
+            case 'GET':
+                $coursController->getCoursJoinPromo();
                 break;
         }
 
