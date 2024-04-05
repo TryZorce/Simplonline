@@ -51,40 +51,10 @@ switch ($route) {
 
         break;
 
-    case API_USERS . '/update':
-        switch ($methode) {
-            case 'GET':
-                $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
-                break;
-            case 'POST':
-                $userController->getUpdateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
-                break;
-        }
-
-        break;
-
-    case API_USERS . '/create':
-        switch ($methode) {
-            case 'POST':
-                $userController->getCreateUsers($nom, $prénom, $activité, $mot_de_passe, $mail);
-                break;
-        }
-
-        break;
-
     case API_COURS:
         switch ($methode) {
             case 'GET':
                 $coursController->getAllCours();
-                break;
-        }
-
-        break;
-
-    case API_COURS . '/update':
-        switch ($methode) {
-            case 'GET':
-                $coursController->updateCours($id, $jour, $periode, $idPromo);
                 break;
         }
 
@@ -129,15 +99,6 @@ switch ($route) {
 
         break;
 
-    case API_PROMO . '/create':
-        switch ($methode) {
-            case 'POST':
-                $promoController->createPromo($nom, $dateDebut, $dateFin, $places);
-                break;
-        }
-
-        break;
-
     case API_PROMO . '/update':
         switch ($methode) {
             case 'GET':
@@ -174,20 +135,11 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $promoController->deletePromoById($id);
-                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
                 break;
         }
 
         break;
 
-    case API_PROMO . '/delete':
-        switch ($methode) {
-            case 'GET':
-                $promoController->deletePromoById($id);
-                break;
-        }
-
-        break;
     default:
         $errorController->notFound();
 }
