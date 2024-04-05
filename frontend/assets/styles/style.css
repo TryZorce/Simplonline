@@ -164,13 +164,13 @@ div input {
 }
 
 /* INSCRIPTIONS */
-#create_user, #create_promo, #update_promo {
+#create_user, #create_promo, #update_promo, #update_user {
   width: 100%;
   background-color: var(--second_color);
   padding: 10px 20px;
 }
 
-#create_user input, #create_promo input, #update_promo input {
+#create_user input, #create_promo input, #update_promo input, #update_user input {
   width: 100%;
   background-color: white;
   height: 34px;
@@ -178,7 +178,7 @@ div input {
   margin: 10px 0;
 }
 
-input#promo_form_btn, input#promo_update_btn {
+input#promo_form_btn, input#promo_update_btn, input#user_update_btn, input#user_form_btn {
   border-radius: 4px;
   background-color: var(--main_color);
   width: min-content;

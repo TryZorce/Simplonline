@@ -632,6 +632,26 @@ function update_user () {
 
     update_user.classList.remove('none');
     update_user.classList.add('block');
+    
+    fetch(promo_url)
+    .then((response) => {
+    if (!response.ok) {
+        throw new Error("Erreur de réseau : " + response.status);
+    }
+    return response.json();
+    })
+    .then((data) => {
+        const select_promo = document.getElementById('promo');
+        data.forEach((promo) => {
+            const option = document.createElement('option');
+            option.value = promo.id_promo;
+            option.textContent = promo.nom;
+            select_promo.appendChild(option);
+        });
+    })
+    .catch((error) => {
+    console.error("Erreur lors de la requête :", error);
+    });
         
     const user_update_btn = document.getElementById("user_update_btn");
     user_update_btn.addEventListener("click", (event) => {
