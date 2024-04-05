@@ -91,7 +91,7 @@ h1, h2, h3, p, span {
 
 /* FORM */
 
-section#connexion_mail, section#connexion_password form, section#confirm_password form, #create_user {
+section#connexion_mail, section#connexion_password form, section#confirm_password form {
   width: 400px;
   margin: 200px auto;
   background-color: var(--second_color);
@@ -161,4 +161,28 @@ div input {
 
 .title_promo button, .title_users button {
   height: fit-content;
+}
+
+/* INSCRIPTIONS */
+#create_user, #create_promo, #update_promo, #update_user {
+  width: 100%;
+  background-color: var(--second_color);
+  padding: 10px 20px;
+}
+
+#create_user input, #create_promo input, #update_promo input, #update_user input {
+  width: 100%;
+  background-color: white;
+  height: 34px;
+  border: 1px solid var(--gray_color);
+  margin: 10px 0;
+}
+
+input#promo_form_btn, input#promo_update_btn, input#user_update_btn, input#user_form_btn {
+  border-radius: 4px;
+  background-color: var(--main_color);
+  width: min-content;
+  color: var(--second_color);
+  padding: 6px 12px;
+  border: none;
 }

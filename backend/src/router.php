@@ -108,6 +108,15 @@ switch ($route) {
 
         break;
 
+    case API_PROMO . '/update':
+        switch ($methode) {
+            case 'GET':
+                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
+                break;
+        }
+
+        break;
+
     case API_PROMO . '/create':
         switch ($methode) {
             case 'POST':
@@ -122,6 +131,7 @@ switch ($route) {
             case 'GET':
                 $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
                 break;
+
 
 
             case 'POST':
@@ -140,6 +150,8 @@ switch ($route) {
 
         break;
 
+
     default:
         $errorController->notFound();
 }
+
