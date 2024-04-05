@@ -16,7 +16,17 @@ switch ($route) {
                 break;
             case 'POST':
                 $usersVerfiMail = $usersRepository->verifMail($mail);
-                break;}
+                break;
+        }
+
+        break;
+
+    case API_USERS . '/innercours':
+        switch ($methode) {
+            case 'GET':
+                $userController->getUsersCours();
+                break;
+        }
 
         break;
 
@@ -89,6 +99,15 @@ switch ($route) {
 
         break;
 
+    case API_PROMO . '/update':
+        switch ($methode) {
+            case 'GET':
+                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
+                break;
+        }
+
+        break;
+
     case API_PROMO . '/create':
         switch ($methode) {
             case 'POST':
@@ -103,6 +122,7 @@ switch ($route) {
             case 'GET':
                 $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
                 break;
+
 
             case 'POST':
                 $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
@@ -119,6 +139,8 @@ switch ($route) {
         }
 
         break;
+
     default:
         $errorController->notFound();
 }
+
