@@ -27,16 +27,17 @@
       <form action="" method="post" class="flex">
         <h1>Bienvenue</h1>
         <div>
-          <abbr title="requis"><label for="email">Email *</abbr></label>
-          <input type="email" name="email" placeholder="email@simplon.co" required>
+          <abbr title="requis"><label for="mail">mail *</abbr></label>
+          <input type="mail" name="mail" placeholder="mail@simplon.co" required>
           <span id="msgbox" class="none"></span>
         </div>
         <input type="submit" value="Connexion" class="btn_blue" id="connexion_email">
       </form>
+      <button id="skip" onclick="skipfunction()">Skip Connexion</button>
     </section>
 
     <section id="confirm_password" class="none">
-      <form action="" method="post" class="flex">
+      <form action="" method="post" class="flex" onsubmit="return checkPassword()">
         <h1>Bienvenue</h1>
         <div>
           <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
@@ -60,6 +61,8 @@
         </div>
         <input type="submit" value="Connexion" class="btn_blue" id="connexion_password_btn">
       </form>
+     
+
     </section>
 
   <!-- INTERFACE QUAND QUELQU'UN EST CONNECTÉ -->
@@ -92,13 +95,12 @@
 
     <!-- LISTE PROMOTION -->
       <article id="promotions" class="none">
-
         <div class="title_promo flex">
           <div>
             <h1>Toutes les promotions</h1>
             <p>Tableau des promotions de Simplon</p>
           </div>
-          <button class="btn_success">Ajouter promotion</button>
+          <button class="btn_success" onclick="creation_promo()">Ajouter promotion</button>
         </div>
 
         <div>
@@ -110,25 +112,141 @@
         </div>
       </article>
 
-    <!-- LISTE USERS -->
-    <article id="users" class="none">
-
-      <div class="title_users flex">
-        <div>
-          <h1>Utilisateurs</h1>
-          <p>Tableau des utilisateurs de Simplon</p>
+      <!-- CREATION PROMOTION -->
+      <article id="create_promo" class="none">
+        <div class="title_promo flex">
+          <h1>Création d'une promotion</h1>
         </div>
-        <button class="btn_success">Ajouter un utilisateur</button>
-      </div>
+        <form action="" method="post">
+            <abbr title="requis"><label for="name_promo">Nom de la promotion *</abbr></label>
+            <input type="text" name="name_promo" maxlength="80" required>
 
-      <div>
-        <table id="users_all">
-          <thead>
-          <tr><th><th>Nom de famille<th>Prénom<th>Mail<th>Compte activé<th>Rôle<th><th></th><td>
-          <tbody id="table_users">
-        </table>
-      </div>
-    </article>
+            <abbr title="requis"><label for="debut_date">Date de début *</abbr></label>
+            <input type="date" name="debut_date" required>
+
+            <abbr title="requis"><label for="end_date">Date de fin *</abbr></label>
+            <input type="date" name="end_date" required>
+
+            <abbr title="requis"><label for="available">Place(s) disponible(s) *</abbr></label>
+            <input type="number" name="available" min="1" placeholder="1" required>
+
+            <input type="submit" value="Sauvegarder" id="promo_form_btn">
+
+            <span id="msgbox" class="none"></span>
+
+        </form>    
+      </article>
+
+      <!-- UPDATE PROMOTION -->
+      <article id="update_promo" class="none">
+        <div class="title_promo flex">
+          <div>
+            <h1>Édition de la promotion DWWM3</h1>
+            <p>Les changements appliqués sont définitifs</p>
+          </div>
+        </div>
+        <form action="" method="post">
+            <abbr title="requis"><label for="name_promo">Nom de la promotion *</abbr></label>
+            <input type="text" name="name_promo" maxlength="80" required>
+
+            <abbr title="requis"><label for="debut_date">Date de début *</abbr></label>
+            <input type="date" name="debut_date" required>
+
+            <abbr title="requis"><label for="end_date">Date de fin *</abbr></label>
+            <input type="date" name="end_date" required>
+
+            <abbr title="requis"><label for="available">Place(s) disponible(s) *</abbr></label>
+            <input type="number" name="available" min="1" placeholder="1" required>
+
+            <input type="submit" value="Sauvegarder" id="promo_update_btn">
+
+            <span id="msgbox" class="none"></span>
+        </form>    
+      </article>
+
+      <!-- LISTE USERS -->
+      <article id="users" class="none">
+
+        <div class="title_users flex">
+          <div>
+            <h1>Utilisateurs</h1>
+            <p>Tableau des utilisateurs de Simplon</p>
+          </div>
+          <button class="btn_success" onclick="create_user()">Ajouter un utilisateur</button>
+        </div>
+
+        <div>
+          <table id="users_all">
+            <thead>
+            <tr><th><th>Nom de famille<th>Prénom<th>Mail<th>Compte activé<th>Rôle<th><th></th><td>
+            <tbody id="table_users">
+          </table>
+        </div>
+      </article>
+
+      <!-- CREATION USER -->
+      <article id="create_user" class="none">
+        <form action="" method="post">
+            <abbr title="requis"><label for="name">Nom *</abbr></label>
+            <input type="text" name="name" maxlength="50" required>
+
+            <abbr title="requis"><label for="surname">Prénom *</abbr></label>
+            <input type="text" name="surname" maxlength="50" required>
+
+            <abbr title="requis"><label for="mail">Adresse mail *</abbr></label>
+            <input type="text" name="mail" maxlength="100" required>
+
+            <abbr title="requis"><label for="role">Rôle *</abbr></label>
+            <select name="role" id="role">
+                <option value="">Selectionner un rôle</option>
+                <option value="manager">Campus Manager</option>
+                <option value="responsable">Responsable pédagogique</option>
+                <option value="instructor">Formateur-rice</option>
+                <option value="student">Apprennant-e</option>
+                <option value="delegate">Délégué-e</option>
+            </select>
+
+            <abbr title="requis"><label for="promo">Promotion(s) *</abbr></label>
+            <select name="promo" id="promo" multiple>
+                <option value="">Selectionner la/les promotion(s) de l'utilisateur</option>
+            </select>
+            <span id="msgbox" class="none"></span>
+
+            <input type="submit" value="Sauvegarder" id="user_form_btn">
+        </form>    
+      </article>
+
+      <!-- UPDATE USER -->
+      <article id="update_user" class="none">
+        <form action="" method="post">
+            <abbr title="requis"><label for="name">Nom *</abbr></label>
+            <input type="text" name="name" maxlength="50" required>
+
+            <abbr title="requis"><label for="surname">Prénom *</abbr></label>
+            <input type="text" name="surname" maxlength="50" required>
+
+            <abbr title="requis"><label for="mail">Adresse mail *</abbr></label>
+            <input type="text" name="mail" maxlength="100" required>
+
+            <abbr title="requis"><label for="role">Rôle *</abbr></label>
+            <select name="role" id="role">
+                <option value="">Selectionner un rôle</option>
+                <option value="manager">Campus Manager</option>
+                <option value="responsable">Responsable pédagogique</option>
+                <option value="instructor">Formateur-rice</option>
+                <option value="student">Apprennant-e</option>
+                <option value="delegate">Délégué-e</option>
+            </select>
+
+            <abbr title="requis"><label for="promo">Promotion(s) *</abbr></label>
+            <select name="promo" id="promo" multiple>
+                <option value="">Selectionner la/les promotion(s) de l'utilisateur</option>
+            </select>
+            <span id="msgbox" class="none"></span>
+
+            <input type="submit" value="Sauvegarder" id="user_update_btn">
+        </form>    
+      </article>
     </section>
   </main>
 

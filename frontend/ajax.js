@@ -1,6 +1,6 @@
-const cours_url = "http://localhost:3000/backend/public/cours";
-const promo_url = "http://localhost:3000/backend/public/promo";
-const users_url = "http://localhost:3000/backend/public/users";
+const cours_url = "http://localhost/~tryzorce/CDA/Brief/Simplonline/backend/public/cours";
+const promo_url = "http://localhost/~tryzorce/CDA/Brief/Simplonline/backend/public/promo";
+const users_url = "http://localhost/~tryzorce/CDA/Brief/Simplonline/backend/public/users";
 
 const login = false;
 
@@ -16,21 +16,21 @@ async function getAllUsers() {
 // Événement de soumission du formulaire d'e-mail
 connexion_email.addEventListener("click", async (event) => {
     event.preventDefault();
-    const emailInput = document.querySelector('input[name="email"]');
-    const email = emailInput.value;
+    const emailInput = document.querySelector('input[name="mail"]');
+    const mail = emailInput.value;
 
     try {
         // Récupérer la liste complète des utilisateurs
         const allUsers = await getAllUsers();
 
         // Vérifier si l'e-mail soumis correspond à l'un des e-mails dans la liste des utilisateurs
-        const user = allUsers.find(user => user.mail === email);
+        const user = allUsers.find(user => user.mail === mail);
         if (!user) {
             // Afficher un message d'erreur si l'e-mail n'existe pas dans la base de données
             const msgbox = document.getElementById('msgbox');
             msgbox.classList.remove('none');
             msgbox.classList.add('block');
-            msgbox.innerText = "Cet email n'est pas reconnu.";
+            msgbox.innerText = "Cet mail n'est pas reconnu.";
             return;
         }
 
@@ -70,7 +70,7 @@ function compareEmail(response, actif) {
         const msgbox = document.getElementById('msgbox');
         msgbox.classList.remove('none');
         msgbox.classList.add('block');
-        msgbox.innerText = "Cet email n'est pas reconnu.";
+        msgbox.innerText = "Cet mail n'est pas reconnu.";
     }
 }
 
@@ -112,24 +112,61 @@ function getPromotions() {
 
 const user = document.getElementById('user_status');
 if (login === true) {
-    user.innerHTML='<a href="" id="deconnexion">Déconnexion</a>'
+    user.innerHTML = '<a href="" id="deconnexion">Déconnexion</a>'
 } else {
-    user.innerHTML='<a href="" id="connexion">Connexion</a>'
+    user.innerHTML = '<a href="" id="connexion">Connexion</a>'
 }
+const setupPasswordBtn = document.getElementById('setup_password');
 
-const confirm_password = document.getElementById("setup_password");
-confirm_password.addEventListener("click", (event) => {
+setupPasswordBtn.onclick = async (event) => {
     event.preventDefault();
-    log_in (succes_login = true);
-});
+    const passwordInput = document.querySelector('input[name="password"]');
+    const confirmPasswordInput = document.querySelector('input[name="confirm_password"]');
+    const emailInput = document.querySelector('input[name="mail"]');
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+    const mail = emailInput.value;
 
-const connexion_password = document.getElementById("connexion_password_btn");
-connexion_password.addEventListener("click", (event) => {
-    event.preventDefault();
-    log_in (succes_login = true);
-});
+    if (password !== confirmPassword) {
+        alert("Les mots de passe ne correspondent pas.");
+        return;
+    }
 
-function log_in (success_login) {
+    try {
+        const response = await fetch(users_url + "/createPassword", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                mot_de_passe: password,
+                mail: mail,
+                activité: 1
+            })
+        });
+        if (!response.ok) {
+            throw new Error("Erreur de réseau : " + response.status);
+        }
+        alert("Le mot de passe a été mis à jour avec succès.");
+        document.getElementById('confirm_password').classList.add('none');
+        document.getElementById('confirm_password').classList.remove('block');
+        document.getElementById('logged_in').classList.remove('none');
+        document.getElementById('logged_in').classList.add('block');
+
+
+
+    } catch (error) {
+        console.error("Erreur lors de l'envoi de la requête :", error);
+        alert("Une erreur s'est produite lors de la mise à jour du mot de passe.");
+    }
+};
+
+
+
+
+
+
+function log_in(success_login) {
     if (success_login === true) {
         const logged_interface = document.getElementById('logged_in');
         const courses = document.getElementById('courses');
@@ -148,12 +185,12 @@ function log_in (success_login) {
         courses.classList.remove('none');
         courses.classList.add('block');
 
-        fetch(cours_url)
+        fetch(users_url)
             .then((response) => {
-            if (!response.ok) {
-                throw new Error("Erreur de réseau : " + response.status);
-            }
-            return response.json();
+                if (!response.ok) {
+                    throw new Error("Erreur de réseau : " + response.status);
+                }
+                return response.json();
             })
             .then((data) => {
                 const list_courses = document.getElementsByClassName('list_courses')[0];
@@ -170,31 +207,100 @@ function log_in (success_login) {
                 });
             })
             .catch((error) => {
-            console.error("Erreur lors de la requête :", error);
+                console.error("Erreur lors de la requête :", error);
             });
     } else {
         alert('Erreur de connexion, veuillez réessayer.');
     }
 }
 
-const home_btn = document.getElementById("home_btn");
-home_btn.addEventListener("click", () => {
-    show_home ();
+// Événement de soumission du formulaire de connexion par mot de passe
+connexion_password_btn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const emailInput = document.querySelector('input[name="mail"]');
+    const passwordInput = document.querySelector('input[name="password"]');
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    try {
+        // Récupérer tous les utilisateurs depuis le frontend
+        const allUsers = await getAllUsers();
+
+        // Trouver l'utilisateur correspondant à l'e-mail entré par l'utilisateur
+        const user = allUsers.find(user => user.mail === email);
+        if (user) {
+            // Comparer le mot de passe entré par l'utilisateur avec le mot de passe hashé de cet utilisateur
+            const passwordMatch = await verifyPassword(password, user.mot_de_passe);
+            if (passwordMatch) {
+                // Mot de passe correct, faire ce que vous devez faire après la connexion réussie
+                // Par exemple, rediriger l'utilisateur vers une page d'accueil
+                window.location.href = "page_d_accueil.html";
+            } else {
+                // Mot de passe incorrect, afficher un message d'erreur
+                alert("Mot de passe incorrect");
+            }
+        } else {
+            // Aucun utilisateur trouvé avec cet e-mail, afficher un message d'erreur
+            alert("Adresse e-mail incorrecte");
+        }
+    } catch (error) {
+        console.error("Erreur lors de la requête :", error);
+    }
 });
 
-function show_home () {
+// Fonction pour vérifier le mot de passe hashé
+async function verifyPassword(password, hashedPassword) {
+    const response = await fetch(users_url + "/verifyPassword", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            password: password,
+            hashedPassword: hashedPassword
+        })
+    });
+    if (!response.ok) {
+        throw new Error("Erreur de réseau : " + response.status);
+    }
+    return await response.json();
+}
+
+
+const home_btn = document.getElementById("home_btn");
+home_btn.addEventListener("click", () => {
+    show_home();
+});
+
+function show_home() {
     const courses = document.getElementById('courses');
     const promotions = document.getElementById('promotions');
     const users = document.getElementById('users');
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     promotions.classList.remove('block');
     promotions.classList.add('none');
 
     users.classList.remove('block');
     users.classList.add('none');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     courses.classList.remove('none');
     courses.classList.add('block');
@@ -208,43 +314,56 @@ function show_home () {
     list_courses.innerHTML = '';
 
     fetch(cours_url)
-    .then((response) => {
-    if (!response.ok) {
-        throw new Error("Erreur de réseau : " + response.status);
-    }
-    return response.json();
-    })
-    .then((data) => {
-        const list_courses = document.getElementsByClassName('list_courses')[0];
-        data.forEach((cours) => {
-            const card_course = document.createElement('div');
-            card_course.classList.add('card_course');
-            card_course.classList.add('flex');
-            card_course.innerHTML = `<div> <h2>Nom de la classe</h2>
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erreur de réseau : " + response.status);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const list_courses = document.getElementsByClassName('list_courses')[0];
+            data.forEach((cours) => {
+                const card_course = document.createElement('div');
+                card_course.classList.add('card_course');
+                card_course.classList.add('flex');
+                card_course.innerHTML = `<div> <h2>Nom de la classe</h2>
             <p>Nb de participants</p> </div>
             <div><p>${cours.jour}</p>
             <button class="btn_blue">État de la signature</button</div>`;
 
-            list_courses.appendChild(card_course);
+                list_courses.appendChild(card_course);
+            });
+        })
+        .catch((error) => {
+            console.error("Erreur lors de la requête :", error);
         });
-    })
-    .catch((error) => {
-    console.error("Erreur lors de la requête :", error);
-    });
 }
 
 const promotions_btn = document.getElementById("promotions_btn");
 promotions_btn.addEventListener("click", () => {
-    show_promotion ();
+    show_promotion();
 });
 
-function show_promotion () {
+function show_promotion() {
     const courses = document.getElementById('courses');
     const promotions = document.getElementById('promotions');
     const users = document.getElementById('users');
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     courses.classList.remove('block');
     courses.classList.add('none');
@@ -254,6 +373,9 @@ function show_promotion () {
 
     promotions.classList.remove('none');
     promotions.classList.add('block');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     home_btn.classList.remove('active');
     users_btn.classList.remove('active');
@@ -265,10 +387,10 @@ function show_promotion () {
 
     fetch(promo_url)
         .then((response) => {
-        if (!response.ok) {
-            throw new Error("Erreur de réseau : " + response.status);
-        }
-        return response.json();
+            if (!response.ok) {
+                throw new Error("Erreur de réseau : " + response.status);
+            }
+            return response.json();
         })
         .then((data) => {
             const table_promo = document.getElementById('table_promo');
@@ -282,35 +404,51 @@ function show_promotion () {
                 <td>${promo.date_fin}
                 <td>${promo.places}
                 <td><button>Voir</button></td>
-                <td><button>Éditer</button></td>
-                <td><button>Supprimer</button></td>
+                <td><button onclick="update_promo()">Éditer</button></td>
+                <td><button onclick="delete_promo()">Supprimer</button></td>
                 `;
                 table_promo.appendChild(tr_promo);
             });
         })
         .catch((error) => {
-        console.error("Erreur lors de la requête :", error);
+            console.error("Erreur lors de la requête :", error);
         });
 }
 
 const users_btn = document.getElementById("users_btn");
 users_btn.addEventListener("click", () => {
-    show_users ();
+    show_users();
 });
 
-function show_users () {
+function show_users() {
     const courses = document.getElementById('courses');
     const promotions = document.getElementById('promotions');
     const users = document.getElementById('users');
     const promotions_btn = document.getElementById("promotions_btn")
     const home_btn = document.getElementById("home_btn")
     const users_btn = document.getElementById("users_btn")
+    const create_promo = document.getElementById('create_promo');
+    const update_promo = document.getElementById('update_promo');
+    const create_user = document.getElementById('create_user');
+    const update_user = document.getElementById('update_user');
+
+    update_user.classList.remove('block');
+    update_user.classList.add('none');
+
+    create_user.classList.remove('block');
+    create_user.classList.add('none');
+
+    update_promo.classList.remove('block');
+    update_promo.classList.add('none');
 
     courses.classList.remove('block');
     courses.classList.add('none');
 
     promotions.classList.remove('block');
     promotions.classList.add('none');
+
+    create_promo.classList.remove('block');
+    create_promo.classList.add('none');
 
     users.classList.remove('none');
     users.classList.add('block');
@@ -325,10 +463,10 @@ function show_users () {
 
     fetch(users_url)
         .then((response) => {
-        if (!response.ok) {
-            throw new Error("Erreur de réseau : " + response.status);
-        }
-        return response.json();
+            if (!response.ok) {
+                throw new Error("Erreur de réseau : " + response.status);
+            }
+            return response.json();
         })
         .then((data) => {
             const table_users = document.getElementById('table_users');
@@ -342,16 +480,350 @@ function show_users () {
                 <td>${users.mail}
                 <td>${users.activité}
                 <td>${users.id_role}
-                <td><button>Éditer</button></td>
+                <td><button onclick="update_user()">Éditer</button></td>
                 <td><button>Supprimer</button></td>
                 `;
                 table_users.appendChild(tr_users);
             });
         })
         .catch((error) => {
-        console.error("Erreur lors de la requête :", error);
+            console.error("Erreur lors de la requête :", error);
         });
 }
+
 // Appels aux fonctions pour récupérer les cours et les promotions
 getCourses();
 getPromotions();
+
+// CREATION PROMOTION
+function creation_promo() {
+    const promotions = document.getElementById('promotions');
+    const create_promo = document.getElementById('create_promo');
+
+    promotions.classList.remove('block');
+    promotions.classList.add('none');
+
+    create_promo.classList.remove('none');
+    create_promo.classList.add('block');
+
+    const promo_form_btn = document.getElementById("promo_form_btn");
+    promo_form_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_form_promo();
+    });
+}
+
+function submit_form_promo() {
+    const name = document.getElementById('name_promo').value;
+    const debut_date = document.getElementById('debut_date').value;
+    const end_date = document.getElementById('end_date').value;
+    const available = document.getElementById('available').value;
+
+    const formData = {
+        nom: name,
+        date_début: debut_date,
+        date_fin: end_date,
+        places: available
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_promotion();
+}
+
+// UPDATE PROMOTION
+function update_promo() {
+    const promotions = document.getElementById('promotions');
+    const update_promo = document.getElementById('update_promo');
+
+    promotions.classList.remove('block');
+    promotions.classList.add('none');
+
+    update_promo.classList.remove('none');
+    update_promo.classList.add('block');
+
+    const promo_update_btn = document.getElementById("promo_update_btn");
+    promo_update_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_update_promo();
+    });
+}
+
+function submit_update_promo() {
+    const name = document.getElementById('name_promo').value;
+    const debut_date = document.getElementById('debut_date').value;
+    const end_date = document.getElementById('end_date').value;
+    const available = document.getElementById('available').value;
+    const promo_id = promo_id;
+
+    const formData = {
+        nom: name,
+        date_début: debut_date,
+        date_fin: end_date,
+        places: available,
+        id_promo: promo_id
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_promotion();
+}
+
+//DELETE PROMOTION
+function delete_promo() {
+    const promo_id = promo_id;
+
+    const formData = {
+        id_promo: promo_id
+    };
+
+    fetch(promo_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_promotion();
+}
+
+// CREATION USER
+function create_user() {
+    const users = document.getElementById('users');
+    const create_user = document.getElementById('create_user');
+
+    users.classList.remove('block');
+    users.classList.add('none');
+
+    create_user.classList.remove('none');
+    create_user.classList.add('block');
+
+    fetch(promo_url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erreur de réseau : " + response.status);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const select_promo = document.getElementById('promo');
+            data.forEach((promo) => {
+                const option = document.createElement('option');
+                option.value = promo.id_promo;
+                option.textContent = promo.nom;
+                select_promo.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error("Erreur lors de la requête :", error);
+        });
+
+    const user_form_btn = document.getElementById("user_form_btn");
+    user_form_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_form_user();
+    });
+}
+
+function submit_form_user() {
+    const name = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const mail = document.getElementById('mail').value;
+    const role = document.getElementById('role').value;
+    const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
+
+    const formData = {
+        nom: name,
+        prénom: surname,
+        mail: mail,
+        id_role: role,
+        promo: promo
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_users();
+}
+
+// UPDATE USER
+function update_user() {
+    const users = document.getElementById('users');
+    const update_user = document.getElementById('update_user');
+
+    users.classList.remove('block');
+    users.classList.add('none');
+
+    update_user.classList.remove('none');
+    update_user.classList.add('block');
+
+    fetch(promo_url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erreur de réseau : " + response.status);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const select_promo = document.getElementById('promo');
+            data.forEach((promo) => {
+                const option = document.createElement('option');
+                option.value = promo.id_promo;
+                option.textContent = promo.nom;
+                select_promo.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error("Erreur lors de la requête :", error);
+        });
+
+    const user_update_btn = document.getElementById("user_update_btn");
+    user_update_btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        submit_update_user();
+    });
+}
+
+function submit_update_user() {
+    const name = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const mail = document.getElementById('mail').value;
+    const role = document.getElementById('role').value;
+    const promo = Array.from(document.getElementById('promo').selectedOptions).map(option => option.value);
+    const user_id = user_id;
+
+    const formData = {
+        nom: name,
+        prénom: surname,
+        mail: mail,
+        id_role: role,
+        promo: promo,
+        id_users: user_id
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_users();
+}
+
+//DELETE USER
+function delete_user() {
+    const user_id = user_id;
+
+    const formData = {
+        id_users: user_id
+    };
+
+    fetch(users_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Données envoyées avec succès : ', data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête : ', error);
+        });
+
+    show_users();
+}
+
+function skipfunction() {
+    document.getElementById('connexion_mail').classList.add('none');
+    document.getElementById('connexion_mail').classList.remove('block');
+    document.getElementById('logged_in').classList.remove('none');
+    document.getElementById('logged_in').classList.add('block');
+}

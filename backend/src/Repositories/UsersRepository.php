@@ -4,7 +4,7 @@ class UsersRepository extends Database
 {
     public function getAll()
     {
-        $req = $this->getDb()->query('SELECT * FROM users');
+        $req = $this->getDb()->query('SELECT * FROM Users');
 
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
 
@@ -42,6 +42,21 @@ class UsersRepository extends Database
             echo json_encode(["error" => "Erreur lors de la création de l'utilisateur"]);
         }
     }
+
+    public function getCreatePassword($mot_de_passe)
+{
+    $query = 'INSERT INTO users (mot_de_passe) 
+    VALUES (:mot_de_passe)';
+
+    $req = $this->getDb()->prepare($query);
+
+    $req->execute([
+        'mot_de_passe' => $mot_de_passe,
+    ]);
+
+    return $req->fetchAll(PDO::FETCH_CLASS, Users::class);
+}
+
 
     public function getDelete($id_users)
     {
@@ -119,4 +134,65 @@ class UsersRepository extends Database
             return false;
         }
     }
+
+    public function getUsersCours()
+    {
+        $query = "
+            SELECT 
+                Users.nom AS nom_utilisateur, 
+                Users.prénom AS prénom_utilisateur, 
+                Cours.periode AS période_cours, 
+                Cours.jour AS jour_cours,
+                Promo.nom AS nom_promo,
+                Rôles.nom AS nom_classe
+            FROM 
+                user_cours
+            INNER JOIN 
+                Users ON user_cours.id_users = Users.id_users
+            INNER JOIN 
+                Cours ON user_cours.id = Cours.id
+            INNER JOIN
+                Promo ON Cours.id_promo = Promo.id_promo
+            INNER JOIN
+                Rôles ON Users.id_role = Rôles.id_role;
+        ";
+
+        $req = $this->getDb()->prepare($query);
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updatePassword($email, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query = 'UPDATE Users SET mot_de_passe = :mot_de_passe, activité = 1 WHERE mail = :mail';
+        $stmt = $this->getDb()->prepare($query);
+        $stmt->bindParam(':mot_de_passe', $hashedPassword);
+        $stmt->bindParam(':mail', $email);
+        return $stmt->execute();
+    }
+    
+    public function getPasswordByEmail($email)
+    {
+        $query = 'SELECT mot_de_passe FROM Users WHERE mail = :mail';
+        $stmt = $this->getDb()->prepare($query);
+        $stmt->bindParam(':mail', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC)['mot_de_passe'];
+    }
+
+    public function verifyPassword($email, $password) {
+        $hashedPassword = $this->getPasswordByEmail($email);
+        if (!$hashedPassword) {
+            return false; 
+        }
+        if (password_verify($password, $hashedPassword)) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+
+
 }
