@@ -642,6 +642,7 @@ function update_user () {
     })
     .then((data) => {
         const select_promo = document.getElementById('promo_update');
+      
         data.forEach((promo) => {
             const option = document.createElement('option');
             option.value = promo.id_promo;
