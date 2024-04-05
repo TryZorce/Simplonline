@@ -52,15 +52,4 @@ class CoursRepository extends Database{
     
         return $data;
     }
-
-    public function getCoursJoinPromo() {
-        $requete = $this->getDb()->query('SELECT * FROM cours JOIN promo ON cours.id_promo = promo.id_promo');
-            
-        $data = $requete->fetchAll(PDO::FETCH_ASSOC);
-    
-        $requete->closeCursor();
-    
-        return $data;
-    }
-    
 }
