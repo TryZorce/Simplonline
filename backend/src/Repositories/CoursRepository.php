@@ -42,27 +42,15 @@ class CoursRepository extends Database{
         $stmt->execute();
     }
 
-    public function getCoursAndPromo() {
-        $query = "
-            SELECT 
-                Cours.id,
-                Cours.jour,
-                Cours.periode,
-                Promo.id_promo,
-                Promo.nom AS nom_promo,
-                Promo.date_début AS date_debut_promo,
-                Promo.date_fin AS date_fin_promo,
-                Promo.places AS places_promo
-            FROM 
-                Cours
-            INNER JOIN 
-                Promo ON Cours.id_promo = Promo.id_promo
-        ";
+
+    public function getCoursJoinPromo() {
+        $requete = $this->getDb()->query('SELECT * FROM cours JOIN promo ON cours.id_promo = promo.id_promo');
+            
+        $data = $requete->fetchAll(PDO::FETCH_ASSOC);
     
-        $req = $this->getDb()->prepare($query);
-        $req->execute();
+        $requete->closeCursor();
     
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
     
 }
