@@ -43,6 +43,21 @@ class UsersRepository extends Database
         }
     }
 
+    public function getCreatePassword($mot_de_passe)
+{
+    $query = 'INSERT INTO users (mot_de_passe) 
+    VALUES (:mot_de_passe)';
+
+    $req = $this->getDb()->prepare($query);
+
+    $req->execute([
+        'mot_de_passe' => $mot_de_passe,
+    ]);
+
+    return $req->fetchAll(PDO::FETCH_CLASS, Users::class);
+}
+
+
     public function getDelete($id_users)
     {
         $query = 'DELETE FROM users WHERE id_users = :id_users';
@@ -147,4 +162,37 @@ class UsersRepository extends Database
 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function updatePassword($email, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query = 'UPDATE Users SET mot_de_passe = :mot_de_passe, activité = 1 WHERE mail = :mail';
+        $stmt = $this->getDb()->prepare($query);
+        $stmt->bindParam(':mot_de_passe', $hashedPassword);
+        $stmt->bindParam(':mail', $email);
+        return $stmt->execute();
+    }
+    
+    public function getPasswordByEmail($email)
+    {
+        $query = 'SELECT mot_de_passe FROM Users WHERE mail = :mail';
+        $stmt = $this->getDb()->prepare($query);
+        $stmt->bindParam(':mail', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC)['mot_de_passe'];
+    }
+
+    public function verifyPassword($email, $password) {
+        $hashedPassword = $this->getPasswordByEmail($email);
+        if (!$hashedPassword) {
+            return false; 
+        }
+        if (password_verify($password, $hashedPassword)) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+
+
 }

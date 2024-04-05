@@ -44,6 +44,15 @@ switch ($route) {
 
         break;
 
+    case API_USERS . '/createPassword':
+        switch ($methode) {
+            case 'POST':
+                $userController->confirmPassword();
+                break;
+        }
+        break;
+
+
     case API_COURS:
         switch ($methode) {
             case 'GET':
@@ -62,14 +71,6 @@ switch ($route) {
 
         break;
         
-    case API_COURS . '/coursjoinpromo':
-        switch ($methode) {
-            case 'GET':
-                $coursController->getCoursJoinPromo();
-                break;
-        }
-
-        break;
 
     case API_COURS . '/update':
         switch ($methode) {
@@ -105,24 +106,6 @@ switch ($route) {
         switch ($methode) {
             case 'GET':
                 $promoController->getAllPromo();
-                break;
-        }
-
-        break;
-
-    case API_PROMO . '/update':
-        switch ($methode) {
-            case 'GET':
-                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
-                break;
-        }
-
-        break;
-
-    case API_PROMO . '/update':
-        switch ($methode) {
-            case 'GET':
-                $promoController->updatePromo($id, $nom, $dateDebut, $dateFin, $places);
                 break;
         }
 
@@ -165,5 +148,4 @@ switch ($route) {
     default:
         $errorController->notFound();
 }
-
 

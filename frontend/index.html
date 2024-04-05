@@ -27,8 +27,8 @@
       <form action="" method="post" class="flex">
         <h1>Bienvenue</h1>
         <div>
-          <abbr title="requis"><label for="email">Email *</abbr></label>
-          <input type="email" name="email" placeholder="email@simplon.co" required>
+          <abbr title="requis"><label for="mail">mail *</abbr></label>
+          <input type="mail" name="mail" placeholder="mail@simplon.co" required>
           <span id="msgbox" class="none"></span>
         </div>
         <input type="submit" value="Connexion" class="btn_blue" id="connexion_email">
@@ -37,7 +37,7 @@
     </section>
 
     <section id="confirm_password" class="none">
-      <form action="" method="post" class="flex">
+      <form action="" method="post" class="flex" onsubmit="return checkPassword()">
         <h1>Bienvenue</h1>
         <div>
           <abbr title="requis"><label for="password">Mot de passe *</abbr></label>
@@ -61,6 +61,8 @@
         </div>
         <input type="submit" value="Connexion" class="btn_blue" id="connexion_password_btn">
       </form>
+     
+
     </section>
 
   <!-- INTERFACE QUAND QUELQU'UN EST CONNECTÉ -->
@@ -183,8 +185,8 @@
             <abbr title="requis"><label for="surname">Prénom *</abbr></label>
             <input type="text" name="surname" maxlength="50" required>
 
-            <abbr title="requis"><label for="email">Adresse email *</abbr></label>
-            <input type="text" name="email" maxlength="100" required>
+            <abbr title="requis"><label for="mail">Adresse mail *</abbr></label>
+            <input type="text" name="mail" maxlength="100" required>
 
             <abbr title="requis"><label for="role">Rôle *</abbr></label>
             <select name="role" id="role">
@@ -215,8 +217,8 @@
             <abbr title="requis"><label for="surname">Prénom *</abbr></label>
             <input type="text" name="surname" maxlength="50" required>
 
-            <abbr title="requis"><label for="email">Adresse email *</abbr></label>
-            <input type="text" name="email" maxlength="100" required>
+            <abbr title="requis"><label for="mail">Adresse mail *</abbr></label>
+            <input type="text" name="mail" maxlength="100" required>
 
             <abbr title="requis"><label for="role">Rôle *</abbr></label>
             <select name="role" id="role">
