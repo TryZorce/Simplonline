@@ -1,0 +1,107 @@
+table#promo_all {
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-rendering: optimizeLegibility;
+  border-radius: 5px;
+  width: 100%;
+}
+table#promo_all thead th {
+  font-weight: 600;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 6px 2px -5px;
+}
+table#promo_all thead th,
+table#promo_all tbody td {
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+table#promo_all tbody td {
+  padding: 0.8rem;
+}
+table#promo_all tbody tr:not(:last-child) {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+table#promo_all input {
+    width: 40px;
+}
+
+table#promo_all button {
+    color: #0D6EFD;
+}
+
+@media screen and (max-width: 700px) {
+  table#promo_all caption {
+    background-image: none;
+  }
+  table#promo_all thead {
+    display: none;
+  }
+  table#promo_all tbody td {
+    display: block;
+    padding: 0.6rem;
+  }
+  table#promo_all tbody tr td:first-child {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 6px 2px -5px;
+  }
+  table#promo_all tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 6rem;
+  }
+}
+
+table#users_all {
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-rendering: optimizeLegibility;
+  border-radius: 5px;
+  width: 100%;
+}
+table#users_all thead th {
+  font-weight: 600;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 6px 2px -5px;
+}
+table#users_all thead th,
+table#users_all tbody td {
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+table#users_all tbody td {
+  padding: 0.8rem;
+}
+table#users_all tbody tr:not(:last-child) {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+table#users_all input, table#users_all input {
+    width: 40px;
+}
+
+table#users_all button, table#users_all button{
+    color: #0D6EFD;
+}
+
+@media screen and (max-width: 700px) {
+  table#users_all caption {
+    background-image: none;
+  }
+  table#users_all thead {
+    display: none;
+  }
+  table#users_all tbody td {
+    display: block;
+    padding: 0.6rem;
+  }
+  table#users_all tbody tr td:first-child {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 6px 2px -5px;
+  }
+  table#users_all tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 6rem;
+  }
+}

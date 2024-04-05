@@ -1,70 +1,70 @@
-const url = "http://localhost:3000/backend/public";
+// const url = "http://localhost:3000/backend/public";
 
-document
-  .getElementById("connexion_email")
-  .addEventListener("click", () => fetchGet(url));
+// document
+//   .getElementById("connexion_email")
+//   .addEventListener("click", () => fetchGet(url));
 
-function fetchGet(url) {
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur de réseau : " + response.status);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la requête :", error);
-    });
-}
+// function fetchGet(url) {
+//   fetch(url)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Erreur de réseau : " + response.status);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//     })
+//     .catch((error) => {
+//       console.error("Erreur lors de la requête :", error);
+//     });
+// }
 
-document
-  .getElementById("connexion_email")
-  .addEventListener("click", signUpRequest);
+// document
+//   .getElementById("connexion_email")
+//   .addEventListener("click", signUpRequest);
 
-function signUpRequest(event) {
-  event.preventDefault();
+// function signUpRequest(event) {
+//   event.preventDefault();
 
-  // const name = document.getElementById("name").value;
-  const password = document.getElementById("password").value;
-  const email = document.getElementById("email").value;
+//   // const name = document.getElementById("name").value;
+//   const password = document.getElementById("password").value;
+//   const email = document.getElementById("email").value;
 
-  const requestBody = {
-    // name: name,
-    password: password,
-    email: email,
-  };
+//   const requestBody = {
+//     // name: name,
+//     password: password,
+//     email: email,
+//   };
 
-  fetchPost(url, requestBody);
-}
+//   fetchPost(url, requestBody);
+// }
 
-function fetchPost(url, body) {
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur de réseau : " + response.status);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la requête :", error);
-    });
-}
+// function fetchPost(url, body) {
+//   fetch(url, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(body),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Erreur de réseau : " + response.status);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//     })
+//     .catch((error) => {
+//       console.error("Erreur lors de la requête :", error);
+//     });
+// }
 
-fetchPost("http://localhost:3000/backend/public", { key: "value" });
+// fetchPost("http://localhost:3000/backend/public", { key: "value" });
 
-// Si tu veux l'utiliser sur un bouton au clic du formulaire par ex :
-document
-  .getElementById("connexion_email")
-  .addEventListener("click", () => fetchPost(url, { key: "value" }));
+// // Si tu veux l'utiliser sur un bouton au clic du formulaire par ex :
+// document
+//   .getElementById("connexion_email")
+//   .addEventListener("click", () => fetchPost(url, { key: "value" }));

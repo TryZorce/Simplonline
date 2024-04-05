@@ -82,4 +82,16 @@ class UsersController
 
         echo ($jsonReponse);
     }
+
+
+
+    public function postVerifMail()
+    {
+        $usersRepository = new UsersRepository();
+        $usersVerfiMail = $usersRepository->verifMail($_POST['mail']);
+    
+        echo json_encode(["user" => $usersVerfiMail]);
+    }
+    
+
 }
