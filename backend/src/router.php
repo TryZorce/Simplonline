@@ -72,9 +72,6 @@ switch ($route) {
 
         break;
 
-
-        break;
-
     case API_COURS:
         switch ($methode) {
             case 'GET':
@@ -120,9 +117,6 @@ switch ($route) {
                 $coursController->createCours($jour, $periode, $idPromo);
                 break;
         }
-
-        break;
-
 
         break;
 
@@ -192,7 +186,6 @@ switch ($route) {
                 $promoController->deletePromoById($id);
                 break;
         }
-
 
         break;
     default:
