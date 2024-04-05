@@ -52,5 +52,4 @@ class CoursRepository extends Database{
     
         return $data;
     }
-    
 }
