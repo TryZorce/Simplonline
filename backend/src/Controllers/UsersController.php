@@ -105,5 +105,6 @@ class UsersController
         header('Content-Type: application/json');
 
         echo ($jsonReponse);
+        
     }
 }
