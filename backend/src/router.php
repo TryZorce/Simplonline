@@ -60,6 +60,15 @@ switch ($route) {
         }
 
         break;
+        
+    case API_COURS . '/coursjoinpromo':
+        switch ($methode) {
+            case 'GET':
+                $coursController->getCoursJoinPromo();
+                break;
+        }
+
+        break;
 
     case API_COURS . '/update':
         switch ($methode) {
